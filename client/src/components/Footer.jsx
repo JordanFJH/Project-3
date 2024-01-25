@@ -2,8 +2,8 @@
 
 function Footer(props) {
     return (
-        <div>
-            Footer
+        <div className="bottom-0 text-center">
+            <h4>Footer</h4>
         </div>
     );
 }

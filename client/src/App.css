@@ -1,3 +1,12 @@
 /* @tailwind base; */
 @tailwind components;
 @tailwind utilities;
+
+#root {
+    min-height: 100vh;
+}
+
+.guest-home-main {
+    border: 2px solid black;
+    min-height: 100%;
+}

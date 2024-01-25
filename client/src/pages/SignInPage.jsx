@@ -4,6 +4,14 @@ import { useState } from "react";
 function SignInPage(props) {
 
     const [option, setOption] = useState(true)
+    const [input, setInput] = useState("")
+
+
+    //function for the handle change
+    // Come back to this
+    function handleChange(e) {
+
+    }
 
     function loginForm() {
         return (

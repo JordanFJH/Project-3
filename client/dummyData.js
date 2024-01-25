@@ -6,6 +6,8 @@ export const allContent = {
             id: "Movie 1 ID Number",
             length: "Movie Runtime",
             progress: "Movie Progress",
+            completed: false,
+            consuming: false,
             type: "movie"
         },
         {},

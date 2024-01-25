@@ -1,9 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function UserInfo(props) {
+
+    const params = useParams()
+
     return (
         <div>
-            <h4>Signin/UserInfo</h4>
+            <Link to="/login">
+                <h4>Signin/UserInfo</h4>
+            </Link>
         </div>
     );
 }

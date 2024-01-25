@@ -1,9 +1,9 @@
 
 
-function Footer(props) {
+function Footer() {
     return (
-        <div className="bottom-0 text-center">
-            <h4>Footer</h4>
+        <div className="bottom-0 flex justify-center items-center bg-green-400 h-12">
+            <h2>Footer</h2>
         </div>
     );
 }

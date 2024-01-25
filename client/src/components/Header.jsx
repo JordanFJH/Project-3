@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import UserInfo from "./UserInfo";
 
-function Header(props) {
+function Header() {
     return (
         <div className="w-screen bg-green-400 flex flex-row justify-evenly">
-            <h4>MPT</h4>
+            <Link to="/"><h4>Home</h4></Link>
+            <h4>Media Progress Tracker</h4>
             <UserInfo />
         </div>
     );

@@ -1,9 +1,8 @@
-import React from 'react';
 
 function SignInPage(props) {
     return (
-        <div>
-            Sign in page
+        <div className='login-main'>
+            <h1>Sign in Page</h1>
         </div>
     );
 }

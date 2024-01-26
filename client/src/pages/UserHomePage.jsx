@@ -10,7 +10,7 @@ function UserHomePage(props) {
     let combined = []
     function showConsuming(content, index) {
         return (
-            <h4 key={index}>{content.name}: {content.progress}</h4>
+            <h4 key={index}>{content.name}: {(content.progress / content.length).toFixed(2) * 100}% </h4>
         )
     }
 
@@ -57,7 +57,7 @@ function UserHomePage(props) {
                 </div>
             </section>
             <section className="flex items-center">
-                <Link to="/content" state={{from: "occupation"}}>
+                <Link to="/search">
                     <div className="border-black border-2 border-solid w-full">
                         <h2>Search</h2>
 

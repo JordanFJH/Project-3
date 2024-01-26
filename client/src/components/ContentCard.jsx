@@ -13,7 +13,7 @@ function ContentCard({ content, setActiveInfo, setDisplayInfo, setStartUpdate })
                 lengthType = "episodes"
                 break;
             case "game":
-                lengthType = "hours"
+                lengthType = "hours (average)"
                 break;
             case "book":
                 lengthType = "pages"

@@ -3,13 +3,12 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const contentSchema = new Schema({
-    username: { type: String, require: true, unique: true },
-    email: { type: String, require: true },
-    password: { type: String, require: true },
-    content: {
-        type: mongoose.Types.ObjectId,
-        ref: "content"
-    }
+    name: { type: String, require: true },
+    id: { type: String, require: true },
+    length: { type: String, require: true },
+    progress: { type: String, default: "0" },
+    completed: { type: Boolean, default: false },
+    type: { type: String, require: true }
 })
 
 const Content = mongoose.model("content", contentSchema)

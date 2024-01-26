@@ -7,10 +7,10 @@ const userSchema = new Schema({
     email: { type: String, require: true },
     password: { type: String, require: true },
     // Area for content user has saved
-    content: {
+    content: [{
         type: mongoose.Types.ObjectId,
         ref: "content"
-    }
+    }]
 })
 
 const User = mongoose.model("user", userSchema)

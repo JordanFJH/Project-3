@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt")
 async function createUser(req, res) {
     try {
         // Check if they exist
-        const foundUser = User.findOne({ username: req.body.username })
+        const foundUser = await User.findOne({ username: req.body.username })
         if (foundUser) {
             return res.status(400).json({ message: "User already exists" })
         }

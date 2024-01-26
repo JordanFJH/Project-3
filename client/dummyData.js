@@ -108,7 +108,7 @@ const allContent = {
             type: "book"
         },
         {
-            name: "Book1 3",
+            name: "Book 3",
             id: "54556",
             length: "221",
             progress: "Book Progress",

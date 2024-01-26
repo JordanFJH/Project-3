@@ -29,6 +29,19 @@
     justify-content: space-around;
 }
 
+.user-media-main {
+    border: 2px solid black;
+    height: 90%;
+    display: flex;
+    justify-content: space-around;
+}
+
 a {
     text-decoration: none;
+}
+
+/* General Classes */
+
+.hover-scale:hover {
+    transform: scale(1.25);
 }

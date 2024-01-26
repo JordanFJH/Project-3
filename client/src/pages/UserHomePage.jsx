@@ -1,4 +1,5 @@
 import allContent from "../../dummyData";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 
@@ -9,19 +10,19 @@ function UserHomePage(props) {
     let combined = []
     function showConsuming(content, index) {
         return (
-            <h4 key={index}>{content.name}</h4>
+            <h4 key={index}>{content.name}: {content.progress}</h4>
         )
     }
 
     useEffect(() => {
-        combined = [...allContent.bookData, ...allContent.gameData,...allContent.movieData,...allContent.tvData]
+        combined = [...allContent.bookData, ...allContent.gameData, ...allContent.movieData, ...allContent.tvData]
         setCombinedMedia(combined)
         console.log(combined)
     }, [])
 
     console.log(combinedMedia)
-    let consuming = combinedMedia.filter((con) => con.consuming == true)
-    let bookArray = combinedMedia.filter((con) => con.type === "book")
+    // let consuming = combinedMedia.filter((con) => con.consuming == true)
+    // let bookArray = combinedMedia.filter((con) => con.type === "book")
 
 
     return (
@@ -29,21 +30,39 @@ function UserHomePage(props) {
             <section className="h-full flex flex-col justify-around w-4/12 border-black border-2 border-solid">
                 <div className="h-1/4 w-full border-black border-2 border-solid">
                     <h5 className="underline">Currently Consuming</h5>
-                    {consuming.map(showConsuming)}
+                    {combinedMedia.filter((cont) => cont.consuming == true).map(showConsuming)}
                 </div>
                 <div>
-                    <h5>Media Snapshot</h5>
-                    <h4>Books: {bookArray.length}</h4>
+                    <h5 className="underline">Media Snapshot</h5>
+                    <h4>Books: {combinedMedia.filter((con) => con.type == "book").length}</h4>
+                    <h4>TV Shows: {combinedMedia.filter((con) => con.type == "tv").length}</h4>
+                    <h4>Movies: {combinedMedia.filter((con) => con.type == "movie").length}</h4>
+                    <h4>Games: {combinedMedia.filter((con) => con.type == "game").length}</h4>
+
                 </div>
-                <div>
-                    All my media
+
+                <div className="flex justify-center">
+                    <Link to="/content">
+                        <h2 className="hover-scale">
+                            All my media
+                        </h2>
+                    </Link>
+                </div>
+
+            </section>
+            <section className="h-full w-5/12 border-black border-2 border-solid flex flex-col items-center">
+                <h2 className="underline">What's Trending</h2>
+                <div className="border-black border-2 border-solid h-full w-full">
+                    <h4>Sample Data</h4>
                 </div>
             </section>
-            <section>
-                Trending
-            </section>
-            <section>
-                Search
+            <section className="flex items-center">
+                <Link to="/content" state={{from: "occupation"}}>
+                    <div className="border-black border-2 border-solid w-full">
+                        <h2>Search</h2>
+
+                    </div>
+                </Link>
             </section>
         </div>
     );

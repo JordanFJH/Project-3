@@ -25,7 +25,22 @@ async function createUser(req, res) {
 
 // Logging the user in
 async function loginUser(req, res) {
-
+    try {
+        //Check if user exists
+        const foundUser = await User.findOne({ username: req.body.username })
+        if (!foundUser) {
+            return res.status(400).json({ message: "Could not find user" })
+        }
+        // Check if password matches
+        const validPassword = await bcrypt.compare(req.body.password, foundUser.password)
+        if (!validPassword) {
+            return res.status(400).json({ error: "Invalid Credentials" })
+        }
+        res.status(200).json({ message: "User was able to log in" })
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({ error: error.message })
+    }
 }
 
 module.exports = {

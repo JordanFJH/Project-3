@@ -7,10 +7,13 @@ const app = express()
 const PORT = 8080;
 
 const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes")
 
 
 // Initial Stuff
-app.use("/api", userRoutes)
+
+app.use("/api/users", userRoutes)
+app.use("/auth", authRoutes)
 
 
 //MIDDLEWARE

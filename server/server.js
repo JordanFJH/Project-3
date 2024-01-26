@@ -1,13 +1,12 @@
 const express = require("express")
-const mongoConfig = require("./config");
 require("dotenv").config()
+const mongoConfig = require("./config");
+mongoConfig()
 
 const app = express()
 const PORT = 8080;
 
 const userRoutes = require("./routes/userRoutes");
-
-mongoConfig()
 
 
 // Initial Stuff

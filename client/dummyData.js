@@ -5,7 +5,7 @@ const allContent = {
             name: "Movie 1",
             id: "98342",
             length: "120",
-            progress: "Movie Progress",
+            progress: "0",
             completed: false,
             consuming: true,
             type: "movie"
@@ -13,7 +13,7 @@ const allContent = {
             name: "Movie 2",
             id: "32654",
             length: "90",
-            progress: "Movie Progress",
+            progress: "0",
             completed: false,
             consuming: false,
             type: "movie"
@@ -21,7 +21,7 @@ const allContent = {
             name: "Movie 3",
             id: "84094",
             length: "115",
-            progress: "Movie Progress",
+            progress: "0",
             completed: false,
             consuming: false,
             type: "movie"
@@ -33,7 +33,7 @@ const allContent = {
             name: "TV Show 1",
             id: "95431",
             length: "50",
-            progress: "tv Progress",
+            progress: "0",
             completed: false,
             consuming: true,
             type: "tv"
@@ -42,7 +42,7 @@ const allContent = {
             name: "TV Show 2",
             id: "95445",
             length: "122",
-            progress: "tv Progress",
+            progress: "0",
             completed: false,
             consuming: false,
             type: "tv"
@@ -51,7 +51,7 @@ const allContent = {
             name: "TV Show 3",
             id: "95499",
             length: "12",
-            progress: "TV Progress",
+            progress: "0",
             completed: false,
             consuming: false,
             type: "tv"
@@ -63,7 +63,7 @@ const allContent = {
             name: "Game 1",
             id: "22499",
             length: "21",
-            progress: "Game Progress",
+            progress: "0",
             completed: false,
             consuming: true,
             type: "game"
@@ -72,7 +72,7 @@ const allContent = {
             name: "Game 2",
             id: "22685",
             length: "6",
-            progress: "Game Progress",
+            progress: "0",
             completed: false,
             consuming: false,
             type: "game"
@@ -81,7 +81,7 @@ const allContent = {
             name: "Game 3",
             id: "22114",
             length: "21",
-            progress: "Game Progress",
+            progress: "0",
             completed: false,
             consuming: false,
             type: "game"
@@ -93,7 +93,7 @@ const allContent = {
             name: "Book 1",
             id: "54221",
             length: "186",
-            progress: "Book Progress",
+            progress: "0",
             completed: false,
             consuming: true,
             type: "book"
@@ -102,7 +102,7 @@ const allContent = {
             name: "Book 2",
             id: "54633",
             length: "394",
-            progress: "Book Progress",
+            progress: "0",
             completed: false,
             consuming: false,
             type: "book"
@@ -111,7 +111,7 @@ const allContent = {
             name: "Book 3",
             id: "54556",
             length: "221",
-            progress: "Book Progress",
+            progress: "0",
             completed: false,
             consuming: false,
             type: "book"

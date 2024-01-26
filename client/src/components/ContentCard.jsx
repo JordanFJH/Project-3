@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ContentCard({ content, setActiveInfo, setDisplayInfo, displayInfo }) {
+function ContentCard({ content, setActiveInfo, setDisplayInfo, setStartUpdate }) {
 
     let lengthType = "";
 
@@ -26,6 +26,7 @@ function ContentCard({ content, setActiveInfo, setDisplayInfo, displayInfo }) {
     setLengthType()
 
     function setItUp() {
+        setStartUpdate(false)
         content.lengthType = lengthType
         setDisplayInfo(true)
         setActiveInfo(content)

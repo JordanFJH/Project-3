@@ -1,5 +1,5 @@
 // All in one
-export const allContent = {
+const allContent = {
     movieData: [
         {
             name: "Movie 1",
@@ -7,7 +7,7 @@ export const allContent = {
             length: "120",
             progress: "Movie Progress",
             completed: false,
-            consuming: false,
+            consuming: true,
             type: "movie"
         },{
             name: "Movie 2",
@@ -35,7 +35,7 @@ export const allContent = {
             length: "50",
             progress: "tv Progress",
             completed: false,
-            consuming: false,
+            consuming: true,
             type: "tv"
         },
         {
@@ -65,7 +65,7 @@ export const allContent = {
             length: "21",
             progress: "Game Progress",
             completed: false,
-            consuming: false,
+            consuming: true,
             type: "game"
         },
         {
@@ -95,7 +95,7 @@ export const allContent = {
             length: "186",
             progress: "Book Progress",
             completed: false,
-            consuming: false,
+            consuming: true,
             type: "book"
         },
         {
@@ -236,3 +236,5 @@ export const bookData = [
         type: "book"
     },
 ]
+
+export default allContent;

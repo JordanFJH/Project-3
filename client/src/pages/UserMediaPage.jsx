@@ -1,8 +1,8 @@
+import allContent from "../../dummyData";
 
-
-function UserMediaPage(props) {
+function UserMediaPage() {
     return (
-        <div>
+        <div className="user-media-main">
             User media page
         </div>
     );

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #root {
-    min-height: 100vh;
+    height: 100vh;
 }
 
 .guest-home-main {
@@ -20,6 +20,13 @@
     margin: 75px auto 100px auto;
     /* display: flex;
     justify-content: center; */
+}
+
+.user-home-main {
+    border: 2px solid black;
+    height: 90%;
+    display: flex;
+    justify-content: space-around;
 }
 
 a {

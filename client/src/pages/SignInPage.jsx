@@ -28,10 +28,25 @@ function SignInPage({ setUser }) {
     async function handleRegisterSubmit(e) {
         e.preventDefault()
         try {
+            //Send data to backend to create user and token
             const response = await axios.post("/auth/register", registerForm)
+            const token = response.data.token
+            console.log(token)
+            if (!token) {
+                setRegisterForm(emptyRegisterForm)
+                return
+            }
+            localStorage.setItem("token", token)
+
+            const userResponse = await axios.get("/api/users", {
+                headers: {
+                    Authorization: token
+                }
+            })
+            setUser(userResponse.data)
+
             setRegisterForm(emptyRegisterForm)
-            console.log(response)
-            navigate("/")
+            navigate("/home")
         } catch (error) {
             console.log(error)
         }

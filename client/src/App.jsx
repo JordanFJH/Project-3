@@ -7,22 +7,64 @@ import UserMediaPage from './pages/UserMediaPage'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import './App.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
 
   const [user, setUser] = useState({})
 
+  async function getUser(token) {
+    try {
+        const response = await axios.get("/api/users", {
+            headers: {
+                Authorization: token
+            }
+        })
+        setUser(response.data)
+    } catch (error) {
+        console.log(error)
+        localStorage.removeItem("token")
+    }
+    //setIsLoading(false);
+}
+
+useEffect(() => {
+
+  const token = localStorage.getItem("token")
+
+  if (token) {
+      // Get user info
+      getUser(token)
+  } else {
+      //setIsLoading(false)
+  }
+
+}, [])
+
+  // const [loginStatus, setLoginStatus] = useState(false)
+  let loggedIn = user.username
+
   return (
     <>
-    <Header />
+      <Header user={user} setUser={setUser}/>
+      
       <Routes>
-        <Route path='/' element={<GuestHomePage />} />
-        <Route path='/home' element={<UserHomePage user={user} setUser={setUser}/>} />
-        <Route path='/login' element={<SignInPage user={user} setUser={setUser} />} />
+        {loggedIn ? 
+        <>
+        <Route path='/home' element={<UserHomePage user={user} setUser={setUser} />} />
         <Route path='/content' element={<UserMediaPage />} />
         <Route path='/search' element={<SearchPage />} />
+        </>
+        :
+        <>
+        <Route path='/' element={<GuestHomePage />} />
+        <Route path='/login' element={<SignInPage user={user} setUser={setUser} />} />
+        </>
+        
+        
+}
       </Routes>
+
       <Footer />
     </>
   )

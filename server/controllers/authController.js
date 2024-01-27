@@ -1,5 +1,17 @@
 const User = require("../models/UserModel")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+
+
+function generateToken(newUser) {
+    const payLoad = {
+        id: newUser._id,
+        username: newUser.username
+    }
+    return jwt.sign(payLoad, process.env.JWT_SECRET, { expiresIn: 300 })
+
+}
+
 
 // Creating Account
 async function createUser(req, res) {
@@ -15,7 +27,12 @@ async function createUser(req, res) {
         //Updating password and adding to database
         const newUser = await User.create({ ...req.body, password: encryptedPassword })
         console.log(newUser)
-        res.status(200).json({ message: "User has been created" })
+
+        //Generate token
+        const token = generateToken(newUser)
+        console.log(token)
+
+        res.status(200).json({ message: { token } })
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ message: error.message })

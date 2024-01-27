@@ -1,4 +1,5 @@
 import { Route, Routes, Navigate } from 'react-router-dom'
+import axios from 'axios'
 import GuestHomePage from './pages/GuestHomePage'
 import SignInPage from './pages/SignInPage'
 import UserHomePage from './pages/UserHomePage'

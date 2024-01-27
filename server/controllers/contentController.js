@@ -7,8 +7,8 @@ module.exports.getInfo = async (req, res) => {
     try {
         const username = req.header("Username")
         const foundUser = await User.findOne({ username: username }).populate("content")
-
-        res.status(200).json(foundUser.content)
+        console.log("Found user in getinfo")
+        res.status(200).json(foundUser?.content)
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ message: error.message })
@@ -59,7 +59,7 @@ module.exports.updateContent = async (req, res) => {
 module.exports.completeContent = async (req, res) => {
     console.log("Handling completion of content")
     try {
-        
+
         res.send(200).json({ message: "Content marked as complete" })
     } catch (error) {
         console.log(error.message)

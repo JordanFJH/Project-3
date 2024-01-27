@@ -125,6 +125,37 @@ function UserMediaPage(props) {
         setInput(e.target.value)
     }
 
+    async function handleConsuming() {
+        if (activeInfo.completed) {
+            return
+        }
+        if (!activeInfo.consuming) { // if media is not being consumed
+            activeInfo.consuming = true
+            await axios.put("/content", activeInfo)
+            const data = await axios.get("/content", {
+                headers: {
+                    Username: props.user?.username
+                }
+            })
+            setCombinedMedia(data.data)
+            setInput("")
+            setStartUpdate(false)
+            
+        } else { // if media is being consumed
+            activeInfo.consuming = false
+            await axios.put("/content", activeInfo)
+            const data = await axios.get("/content", {
+                headers: {
+                    Username: props.user?.username
+                }
+            })
+            setCombinedMedia(data.data)
+            setInput("")
+            setStartUpdate(false)
+        }
+        
+    }
+
     // Filtering display
     let filteredMedia = combinedMedia.filter((item) => {
         switch (filterType) {
@@ -185,6 +216,8 @@ function UserMediaPage(props) {
                     <h4>Your progress: {activeInfo.progress} {activeInfo.lengthType}</h4>
                     <h4>You are {((activeInfo.progress / activeInfo.length) * 100).toFixed(2)} % complete</h4>
                     <h4>Total Length: {activeInfo.length} {activeInfo.lengthType}</h4>
+                    <button onClick={handleConsuming}>{activeInfo.consuming ? "Stop Consuming" : "Start Consuming"}</button>
+                    <br /><br />
                     <button onClick={() => setStartUpdate(true)}>Update Progress</button>
                     <br /><br />
                     <button onClick={handleComplete}>{activeInfo.completed == false ? "Mark as Complete" : "Mark as Incomplete"}</button>

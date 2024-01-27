@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 
 function UserHomePage(props) {
+    console.log(props.user)
 
     const [combinedMedia, setCombinedMedia] = useState([])
 

@@ -10,6 +10,7 @@ const PORT = 8080;
 
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes")
+const contentRoutes = require("./routes/contentRoutes")
 
 
 //MIDDLEWARE
@@ -20,6 +21,7 @@ app.use(cors())
 
 app.use("/api/users", authorize, userRoutes)
 app.use("/auth", authRoutes)
+app.use("/content", contentRoutes)
 
 
 

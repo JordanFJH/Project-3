@@ -47,7 +47,6 @@ useEffect(() => {
   return (
     <>
       <Header user={user} setUser={setUser}/>
-      
       <Routes>
         {loggedIn ? 
         <>

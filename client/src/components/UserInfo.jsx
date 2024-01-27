@@ -12,7 +12,10 @@ function UserInfo({ user, setUser }) {
 
     function signedIn() {
         return (
-            <h4 onClick={signOutProcess}>Sign Out</h4>
+            <div className="flex">
+                <h4>{user.username}</h4>
+                <h4 onClick={signOutProcess}>Sign Out</h4>
+            </div>
         )
     }
 

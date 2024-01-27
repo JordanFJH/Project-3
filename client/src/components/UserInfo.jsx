@@ -1,14 +1,32 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function UserInfo(props) {
+function UserInfo({ user, setUser }) {
 
-    const params = useParams()
+    const navigate = useNavigate()
+
+    function signOutProcess() {
+        localStorage.removeItem("token")
+        setUser({})
+        navigate("/")
+    }
+
+    function signedIn() {
+        return (
+            <h4 onClick={signOutProcess}>Sign Out</h4>
+        )
+    }
+
+    function notSignedIn() {
+        return (
+            <Link to="/login">
+                <h4>{user.username ? "Sign Out" : "Sign in"}</h4>
+            </Link>
+        )
+    }
 
     return (
         <div>
-            <Link to="/login">
-                <h4>Signin/UserInfo</h4>
-            </Link>
+            {user.username ? signedIn() : notSignedIn()}
         </div>
     );
 }

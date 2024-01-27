@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import GuestHomePage from './pages/GuestHomePage'
 import SignInPage from './pages/SignInPage'
 import UserHomePage from './pages/UserHomePage'
@@ -54,11 +54,13 @@ useEffect(() => {
         <Route path='/home' element={<UserHomePage user={user} setUser={setUser} />} />
         <Route path='/content' element={<UserMediaPage />} />
         <Route path='/search' element={<SearchPage />} />
+        <Route path='*' element={<Navigate to="/home" />}/>
         </>
         :
         <>
         <Route path='/' element={<GuestHomePage />} />
         <Route path='/login' element={<SignInPage user={user} setUser={setUser} />} />
+        <Route path='*' element={<Navigate to="/" />}/>
         </>
         
         

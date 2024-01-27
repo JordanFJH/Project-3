@@ -7,5 +7,7 @@ const constCtrl = require("../controllers/contentController")
 
 router.get("/", constCtrl.getInfo)
 
+router.post("/", constCtrl.addContent)
+
 
 module.exports = router

@@ -15,57 +15,56 @@ function App() {
 
   async function getUser(token) {
     try {
-        const response = await axios.get("/api/users", {
-            headers: {
-                Authorization: token
-            }
-        })
-        setUser(response.data)
+      const response = await axios.get("/api/users", {
+        headers: {
+          Authorization: token
+        }
+      })
+      setUser(response.data)
     } catch (error) {
-        console.log(error)
-        localStorage.removeItem("token")
+      console.log(error)
+      localStorage.removeItem("token")
     }
     //setIsLoading(false);
-}
-
-useEffect(() => {
-
-  const token = localStorage.getItem("token")
-
-  if (token) {
-      // Get user info
-      getUser(token)
-  } else {
-      //setIsLoading(false)
   }
 
-}, [])
+  useEffect(() => {
+
+    const token = localStorage.getItem("token")
+
+    if (token) {
+      // Get user info
+      getUser(token)
+    } else {
+      //setIsLoading(false)
+    }
+
+  }, [])
 
   // const [loginStatus, setLoginStatus] = useState(false)
-  let loggedIn = user.username
+  let loggedIn = false
+  const activeToken = localStorage.getItem("token")
+  activeToken?.length > 0 ? loggedIn = true : loggedIn = false
 
   return (
     <>
-      <Header user={user} setUser={setUser}/>
+      <Header user={user} setUser={setUser} />
       <Routes>
-        {loggedIn ? 
-        <>
-        <Route path='/home' element={<UserHomePage user={user} setUser={setUser} />} />
-        <Route path='/content' element={<UserMediaPage />} />
-        <Route path='/search' element={<SearchPage />} />
-        <Route path='*' element={<Navigate to="/home" />}/>
-        </>
-        :
-        <>
-        <Route path='/' element={<GuestHomePage />} />
-        <Route path='/login' element={<SignInPage user={user} setUser={setUser} />} />
-        <Route path='*' element={<Navigate to="/" />}/>
-        </>
-        
-        
-}
+        {loggedIn ?
+          <>
+            <Route path='/home' element={<UserHomePage user={user} setUser={setUser} />} />
+            <Route path='/content' element={<UserMediaPage />} />
+            <Route path='/search' element={<SearchPage />} />
+            <Route path='*' element={<Navigate to="/home" />} />
+          </>
+          :
+          <>
+            <Route path='/' element={<GuestHomePage />} />
+            <Route path='/login' element={<SignInPage user={user} setUser={setUser} />} />
+            <Route path='*' element={<Navigate to="/" />} />
+          </>
+        }
       </Routes>
-
       <Footer />
     </>
   )

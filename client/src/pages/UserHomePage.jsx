@@ -14,17 +14,14 @@ function UserHomePage(props) {
             <h4 key={index}>{content.name}: {(content.progress / content.length).toFixed(2) * 100}% </h4>
         )
     }
+    const [user, setUser] = useState({})
 
     useEffect(() => {
         combined = [...allContent.bookData, ...allContent.gameData, ...allContent.movieData, ...allContent.tvData]
         setCombinedMedia(combined)
-        console.log(combined)
     }, [])
 
     console.log(combinedMedia)
-    // let consuming = combinedMedia.filter((con) => con.consuming == true)
-    // let bookArray = combinedMedia.filter((con) => con.type === "book")
-
 
     return (
         <div className="user-home-main">

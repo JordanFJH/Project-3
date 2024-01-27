@@ -8,7 +8,7 @@ function generateToken(newUser) {
         id: newUser._id,
         username: newUser.username
     }
-    return jwt.sign(payLoad, process.env.JWT_SECRET, { expiresIn: 300 })
+    return jwt.sign(payLoad, process.env.JWT_SECRET, { expiresIn: 30 })
 
 }
 
@@ -32,7 +32,7 @@ async function createUser(req, res) {
         const token = generateToken(newUser)
         console.log(token)
 
-        res.status(200).json({ message: { token } })
+        res.status(200).json({ token })
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ message: error.message })
@@ -53,7 +53,10 @@ async function loginUser(req, res) {
         if (!validPassword) {
             return res.status(400).json({ error: "Invalid Credentials" })
         }
-        res.status(200).json({ message: "User was able to log in" })
+
+        const token = generateToken(foundUser)
+
+        res.status(200).json({ token })
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ error: error.message })

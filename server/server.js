@@ -1,4 +1,5 @@
 const express = require("express")
+const { authorize } = require("./middleware/authMiddleware")
 require("dotenv").config()
 const cors = require("cors")
 const mongoConfig = require("./config");
@@ -17,7 +18,7 @@ app.use(cors())
 
 // Initial Stuff
 
-app.use("/api/users", userRoutes)
+app.use("/api/users", authorize, userRoutes)
 app.use("/auth", authRoutes)
 
 

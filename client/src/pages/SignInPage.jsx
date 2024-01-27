@@ -19,7 +19,7 @@ function SignInPage({ setUser }) {
     const [option, setOption] = useState(true)
     const [input, setInput] = useState("")
     let [registerForm, setRegisterForm] = useState(emptyRegisterForm)
-    const [loginForm, setLoginForm] = useState(emptyLoginForm)
+    let [loginForm, setLoginForm] = useState(emptyLoginForm)
 
     async function handleLoginSubmit(e) {
         e.preventDefault()
@@ -45,7 +45,7 @@ function SignInPage({ setUser }) {
             navigate("/home")
 
         } catch (error) {
-            console.log(error)
+            console.log(error.response.data.error)
         }
     }
 

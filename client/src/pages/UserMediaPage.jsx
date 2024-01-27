@@ -53,6 +53,9 @@ function UserMediaPage(props) {
     // Update the active media card and check if completed
     async function updateProgress() {
         try {
+            if (activeInfo.completed) { // returns if the media is completed
+                return
+            }
             //Updates info on backend
             activeInfo.progress = input
             // let updatedInfo = { ...activeInfo, progress: input }

@@ -237,4 +237,12 @@ export const bookData = [
     },
 ]
 
+export const fakeBook = {
+    name: "A great book",
+    id: "89632",
+    length: "235",
+    
+}
+
+
 export default allContent;

@@ -7,6 +7,7 @@ const contentSchema = new Schema({
     id: { type: String, require: true },
     length: { type: String, require: true },
     progress: { type: String, default: "0" },
+    consuming: { type: Boolean, default: false },
     completed: { type: Boolean, default: false },
     type: { type: String, require: true }
 })

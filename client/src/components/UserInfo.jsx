@@ -22,7 +22,7 @@ function UserInfo({ user, setUser }) {
     function notSignedIn() {
         return (
             <Link to="/login">
-                <h4>{user.username ? "Sign Out" : "Sign in"}</h4>
+                <h4>Sign In</h4>
             </Link>
         )
     }

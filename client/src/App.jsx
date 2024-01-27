@@ -23,7 +23,7 @@ function App() {
       setUser(response.data)
     } catch (error) {
       console.log(error)
-      localStorage.removeItem("token")
+      //localStorage.removeItem("token")
     }
     //setIsLoading(false);
   }

@@ -1,10 +1,14 @@
 import allContent from "../../dummyData";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 
 function UserHomePage(props) {
-    console.log(props.user)
+    
+
+    // const token = localStorage.getItem("token")
+    // console.log("token from UserHomePage", token)
 
     const [combinedMedia, setCombinedMedia] = useState([])
 
@@ -14,12 +18,33 @@ function UserHomePage(props) {
             <h4 key={index}>{content.name}: {(content.progress / content.length).toFixed(2) * 100}% </h4>
         )
     }
-    const [user, setUser] = useState({})
+    async function getUser(token) {
+        try {
+            const response = await axios.get("/api/users", {
+                headers: {
+                    Authorization: token
+                }
+            })
+            console.log("response.data ", response.data)
+            props.setUser(response.data)
+        } catch (error) {
+            console.log(error)
+            localStorage.removeItem("token")
+        }
+        //setIsLoading(false);
+    }
 
     useEffect(() => {
         combined = [...allContent.bookData, ...allContent.gameData, ...allContent.movieData, ...allContent.tvData]
         setCombinedMedia(combined)
+        const token = localStorage.getItem("token")
+        if (token) {
+            // Get user info
+            getUser(token)
+        }
     }, [])
+
+    console.log("props.user ", props.user)
 
     console.log(combinedMedia)
 

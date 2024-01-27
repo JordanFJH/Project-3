@@ -1,10 +1,9 @@
 const express = require("express")
 const router = express.Router()
+const { show } = require("../controllers/UserController")
 
 
-router.get("/", (req, res) => {
-    res.send("You tried signing in")
-})
+router.get("/", show)
 
 
 

@@ -40,8 +40,9 @@ function SignInPage({ setUser }) {
                     Authorization: token
                 }
             })
+            console.log("The use Response ", userResponse.data)
+            console.log(userResponse)
             setUser(userResponse.data)
-
             navigate("/home")
 
         } catch (error) {
@@ -71,9 +72,8 @@ function SignInPage({ setUser }) {
                     Authorization: token
                 }
             })
+            console.log(userResponse.data)
             setUser(userResponse.data)
-
-            setRegisterForm(emptyRegisterForm)
             navigate("/home")
         } catch (error) {
             console.log(error)

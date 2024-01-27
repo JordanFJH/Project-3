@@ -9,5 +9,7 @@ router.get("/", constCtrl.getInfo)
 
 router.post("/", constCtrl.addContent)
 
+router.put("/", constCtrl.updateContent)
+
 
 module.exports = router

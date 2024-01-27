@@ -11,7 +11,7 @@ function authorize(req, res, next) {
             return res.status(403).json({ error: "No token provided" })
         }
 
-        console.log("Middleware Auth Token - ", token) // Bearer Token
+        // console.log("Middleware Auth Token - ", token) // Bearer Token
         token = token.replace("Bearer ", "") // Takes bearer out
 
         // 2 - Check that the token is valid and not expired

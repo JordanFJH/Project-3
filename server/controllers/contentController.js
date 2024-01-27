@@ -41,3 +41,16 @@ module.exports.addContent = async (req, res) => {
     }
 
 }
+
+
+// Updating the content
+module.exports.updateContent = async (req, res) => {
+    console.log("updating content")
+    try {
+        await Content.findByIdAndUpdate(req.body._id, req.body)
+        res.status(200).json({ message: "Content Updated" })
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({ message: error.message })
+    }
+}

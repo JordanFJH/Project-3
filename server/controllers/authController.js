@@ -8,7 +8,7 @@ function generateToken(newUser) {
         id: newUser._id,
         username: newUser.username
     }
-    return jwt.sign(payLoad, process.env.JWT_SECRET, { expiresIn: 30 })
+    return jwt.sign(payLoad, process.env.JWT_SECRET, { expiresIn: 9999 })
 
 }
 

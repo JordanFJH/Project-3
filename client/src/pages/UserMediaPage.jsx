@@ -51,11 +51,26 @@ function UserMediaPage(props) {
 
 
     // Update the active media card and check if completed
-    function updateProgress() {
-        activeInfo.progress = input
-        checkProgress(activeInfo)
-        setInput("")
-        setStartUpdate(false)
+    async function updateProgress() {
+        try {
+            //Updates info on backend
+            let updatedInfo = { ...activeInfo, progress: input }
+            await axios.put("/content", updatedInfo)
+            //checkProgress(activeInfo)
+            //Gets all info again with updated content
+            const data = await axios.get("/content", {
+                headers: {
+                    Username: props.user?.username
+                }
+            })
+            //console.log(data.data)
+            setCombinedMedia(data.data)
+            setInput("")
+            setStartUpdate(false)
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     function handleComplete() {
@@ -145,7 +160,7 @@ function UserMediaPage(props) {
                     <h3>{activeInfo.name}</h3>
                     <h4>{activeInfo.type}</h4>
                     <h4>Your progress: {activeInfo.progress} {activeInfo.lengthType}</h4>
-                    <h4>You are {(activeInfo.progress / activeInfo.length).toFixed(2) * 100} % complete</h4>
+                    <h4>You are {((activeInfo.progress / activeInfo.length) * 100).toFixed(2)} % complete</h4>
                     <h4>Total Length: {activeInfo.length} {activeInfo.lengthType}</h4>
                     <button onClick={() => setStartUpdate(true)}>Update Progress</button>
                     <br /><br />

@@ -19,10 +19,38 @@ function SignInPage({ setUser }) {
     const [option, setOption] = useState(true)
     const [input, setInput] = useState("")
     let [registerForm, setRegisterForm] = useState(emptyRegisterForm)
+    const [loginForm, setLoginForm] = useState(emptyLoginForm)
 
     async function handleLoginSubmit(e) {
         e.preventDefault()
+        try {
+            const response = await axios.post("/auth/login", loginForm)
+            const token = response.data.token
 
+            console.log(token)
+
+            if (!token) {
+                setLoginForm(emptyLoginForm)
+                return
+            }
+            localStorage.setItem("token", token)
+
+            const userResponse = await axios.get("/api/users", {
+                headers: {
+                    Authorization: token
+                }
+            })
+            setUser(userResponse.data)
+
+            navigate("/home")
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function handleLoginChange(e) {
+        setLoginForm({ ...loginForm, [e.target.name]: e.target.value })
     }
 
     async function handleRegisterSubmit(e) {
@@ -58,15 +86,24 @@ function SignInPage({ setUser }) {
         setRegisterForm({ ...registerForm, [e.target.name]: e.target.value })
     }
 
-    function loginForm() {
-
+    function loginFormPage() {
         return (
             <form onSubmit={handleLoginSubmit}>
                 <label htmlFor="username">Username: </label>
-                <input type="text" name="username" />
+                <input 
+                type="text" 
+                name="username" 
+                id="username"
+                onChange={handleLoginChange}
+                />
                 <br /> <br />
                 <label htmlFor="password">Password: </label>
-                <input type="password" name="password" />
+                <input 
+                type="password" 
+                name="password" 
+                id="password"
+                onChange={handleLoginChange}
+                />
                 <br /><br />
                 <button>Submit</button>
             </form>
@@ -114,7 +151,7 @@ function SignInPage({ setUser }) {
                 <button className="px-14 py-4 text-xl" onClick={() => { setOption(false) }}>Register</button>
             </section>
             <section className="mt-14 flex w-full justify-center">
-                {option ? loginForm() : registerFormPage()}
+                {option ? loginFormPage() : registerFormPage()}
             </section>
         </div>
     );

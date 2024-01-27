@@ -1,23 +1,54 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
-function SignInPage(props) {
+function SignInPage({ setUser }) {
+    const navigate = useNavigate()
+
+    let emptyRegisterForm = {
+        username: '',
+        password: '',
+        email: ''
+    }
+    let emptyLoginForm = {
+        username: '',
+        password: ''
+    }
 
     const [option, setOption] = useState(true)
     const [input, setInput] = useState("")
+    let [registerForm, setRegisterForm] = useState(emptyRegisterForm)
 
-
-    //function for the handle change
-    // Come back to this
-    function handleChange(e) {
+    async function handleLoginSubmit(e) {
+        e.preventDefault()
 
     }
 
+    async function handleRegisterSubmit(e) {
+        e.preventDefault()
+        try {
+            const response = await axios.post("/auth/register", registerForm)
+            setRegisterForm(emptyRegisterForm)
+            console.log(response)
+            navigate("/")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    //function for the handle change
+    // Come back to this
+    function handleRegisterChange(e) {
+        setRegisterForm({ ...registerForm, [e.target.name]: e.target.value })
+    }
+
     function loginForm() {
+
         return (
-            <form action="">
+            <form onSubmit={handleLoginSubmit}>
                 <label htmlFor="username">Username: </label>
-                <input type="text" name="username"/>
+                <input type="text" name="username" />
                 <br /> <br />
                 <label htmlFor="password">Password: </label>
                 <input type="password" name="password" />
@@ -27,17 +58,33 @@ function SignInPage(props) {
         )
     }
 
-    function registerForm() {
+    function registerFormPage() {
         return (
-            <form action="">
+            <form onSubmit={handleRegisterSubmit}>
                 <label htmlFor="username">Username: </label>
-                <input type="text" name="username"/>
+                <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    onChange={handleRegisterChange}
+                    value={registerForm.username}
+                />
                 <br /> <br />
                 <label htmlFor="email">Email: </label>
-                <input type="email" name="email"/>
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    onChange={handleRegisterChange}
+                    value={registerForm.email} />
                 <br /><br />
                 <label htmlFor="password">Password: </label>
-                <input type="password" name="password" />
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    onChange={handleRegisterChange}
+                    value={registerForm.password} />
                 <br /><br />
                 <button>Submit</button>
             </form>
@@ -48,11 +95,11 @@ function SignInPage(props) {
     return (
         <div className='login-main'>
             <section className="w-full flex justify-around mt-4">
-                <button className="px-14 py-4 text-xl" onClick={() => {setOption(true)}}>Sign In</button>
-                <button className="px-14 py-4 text-xl" onClick={() => {setOption(false)}}>Register</button>
+                <button className="px-14 py-4 text-xl" onClick={() => { setOption(true) }}>Sign In</button>
+                <button className="px-14 py-4 text-xl" onClick={() => { setOption(false) }}>Register</button>
             </section>
             <section className="mt-14 flex w-full justify-center">
-                {option ? loginForm() : registerForm()}
+                {option ? loginForm() : registerFormPage()}
             </section>
         </div>
     );

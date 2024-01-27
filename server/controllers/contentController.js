@@ -54,3 +54,15 @@ module.exports.updateContent = async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 }
+
+// Marking the content as complete
+module.exports.completeContent = async (req, res) => {
+    console.log("Handling completion of content")
+    try {
+        
+        res.send(200).json({ message: "Content marked as complete" })
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({ message: error.message })
+    }
+}

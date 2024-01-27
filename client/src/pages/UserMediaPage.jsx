@@ -54,8 +54,9 @@ function UserMediaPage(props) {
     async function updateProgress() {
         try {
             //Updates info on backend
-            let updatedInfo = { ...activeInfo, progress: input }
-            await axios.put("/content", updatedInfo)
+            activeInfo.progress = input
+            // let updatedInfo = { ...activeInfo, progress: input }
+            await axios.put("/content", activeInfo)
             //checkProgress(activeInfo)
             //Gets all info again with updated content
             const data = await axios.get("/content", {
@@ -73,27 +74,46 @@ function UserMediaPage(props) {
 
     }
 
-    function handleComplete() {
-        if (!activeInfo.completed) {
-            activeInfo.progress = activeInfo.length
-            checkProgress(activeInfo)
-            const indexNumber = combinedMedia.findIndex((item) => item.id == activeInfo.id)
-            console.log(indexNumber)
-            let fakeArray = [...combinedMedia]
-            fakeArray.splice(indexNumber, 1, activeInfo)
-            console.log(fakeArray)
-            setCombinedMedia(fakeArray)
+    async function handleComplete() {
+        if (!activeInfo.completed) {// If it's not completed
+            activeInfo.progress = activeInfo.length //Setting progress to the max length
+            activeInfo.completed = true // setting completed to true
+            activeInfo.consuming = false
+            await axios.put("/content", activeInfo)
+            const data = await axios.get("/content", {
+                headers: {
+                    Username: props.user?.username
+                }
+            })
+            setCombinedMedia(data.data)
+            setInput("")
             setStartUpdate(false)
-        } else {
+            // checkProgress(activeInfo)
+            // const indexNumber = combinedMedia.findIndex((item) => item.id == activeInfo.id)
+            // console.log(indexNumber)
+            // let fakeArray = [...combinedMedia]
+            // fakeArray.splice(indexNumber, 1, activeInfo)
+            // console.log(fakeArray)
+            
+        } else {// If it is completed
             activeInfo.progress = "0"
             activeInfo.completed = false;
-            const indexNumber = combinedMedia.findIndex((item) => item.id == activeInfo.id)
-            console.log(indexNumber)
-            let fakeArray = [...combinedMedia]
-            fakeArray.splice(indexNumber, 1, activeInfo)
-            console.log(fakeArray)
-            setCombinedMedia(fakeArray)
+            await axios.put("/content", activeInfo)
+            const data = await axios.get("/content", {
+                headers: {
+                    Username: props.user?.username
+                }
+            })
+            setCombinedMedia(data.data)
+            setInput("")
             setStartUpdate(false)
+            // const indexNumber = combinedMedia.findIndex((item) => item.id == activeInfo.id)
+            // console.log(indexNumber)
+            // let fakeArray = [...combinedMedia]
+            // fakeArray.splice(indexNumber, 1, activeInfo)
+            // console.log(fakeArray)
+            // setCombinedMedia(fakeArray)
+            // setStartUpdate(false)
         }
 
     }

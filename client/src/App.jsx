@@ -53,8 +53,8 @@ function App() {
         {loggedIn ?
           <>
             <Route path='/home' element={<UserHomePage user={user} setUser={setUser} />} />
-            <Route path='/content' element={<UserMediaPage />} />
-            <Route path='/search' element={<SearchPage />} />
+            <Route path='/content' element={<UserMediaPage user={user} setUser={setUser}/>} />
+            <Route path='/search' element={<SearchPage user={user} setUser={setUser}/>} />
             <Route path='*' element={<Navigate to="/home" />} />
           </>
           :

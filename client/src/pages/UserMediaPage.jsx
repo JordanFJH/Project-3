@@ -1,4 +1,5 @@
 import allContent from "../../dummyData";
+import axios from "axios";
 import ContentCard from "../components/ContentCard";
 import { useState, useEffect } from "react";
 import { checkProgress } from "../functions/userMediaFunctions";
@@ -12,10 +13,40 @@ function UserMediaPage(props) {
     const [activeInfo, setActiveInfo] = useState({})
     const [input, setInput] = useState("")
     // const [filteredMedia, setFilteredMedia] = useState([])
+    async function getUser(token) {
+        try {
+            // Setting the user
+            const response = await axios.get("/api/users", {
+                headers: {
+                    Authorization: token
+                }
+            })
+            console.log("response.data ", response.data)
+            props.setUser(response.data)
+            // Setting the user's data
+            const data = await axios.get("/content", {
+                headers: {
+                    Username: props.user?.username
+                }
+            })
+            console.log(data.data)
+            setCombinedMedia(data.data)
+        } catch (error) {
+            console.log(error)
+            localStorage.removeItem("token")
+        }
+        //setIsLoading(false);
+    }
+
     useEffect(() => {
-        let combined = [...allContent.bookData, ...allContent.gameData, ...allContent.movieData, ...allContent.tvData]
-        setCombinedMedia(combined)
-        // console.log(combined)
+        // combined = [...allContent.bookData, ...allContent.gameData, ...allContent.movieData, ...allContent.tvData]
+        // setCombinedMedia(combined)
+        const token = localStorage.getItem("token")
+        if (token) {
+            // Get user info
+            getUser(token)
+        }
+
     }, [])
 
 
@@ -115,7 +146,7 @@ function UserMediaPage(props) {
                     <h4>{activeInfo.type}</h4>
                     <h4>Your progress: {activeInfo.progress} {activeInfo.lengthType}</h4>
                     <h4>You are {(activeInfo.progress / activeInfo.length).toFixed(2) * 100} % complete</h4>
-                    <h4>{activeInfo.length} {activeInfo.lengthType}</h4>
+                    <h4>Total Length: {activeInfo.length} {activeInfo.lengthType}</h4>
                     <button onClick={() => setStartUpdate(true)}>Update Progress</button>
                     <br /><br />
                     <button onClick={handleComplete}>{activeInfo.completed == false ? "Mark as Complete" : "Mark as Incomplete"}</button>

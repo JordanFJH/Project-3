@@ -10,7 +10,7 @@ function UserHomePage(props) {
     // const token = localStorage.getItem("token")
     // console.log("token from UserHomePage", token)
 
-    const [combinedMedia, setCombinedMedia] = useState([])
+    let [combinedMedia, setCombinedMedia] = useState([])
 
     let combined = []
     function showConsuming(content, index) {
@@ -20,6 +20,7 @@ function UserHomePage(props) {
     }
     async function getUser(token) {
         try {
+            // Setting the user
             const response = await axios.get("/api/users", {
                 headers: {
                     Authorization: token
@@ -27,6 +28,14 @@ function UserHomePage(props) {
             })
             console.log("response.data ", response.data)
             props.setUser(response.data)
+            // Setting the user's data
+            const data = await axios.get("/content", {
+                headers: {
+                    Username: props.user.username
+                }
+            })
+            console.log(data.data)
+            setCombinedMedia(data.data)
         } catch (error) {
             console.log(error)
             localStorage.removeItem("token")
@@ -35,18 +44,15 @@ function UserHomePage(props) {
     }
 
     useEffect(() => {
-        combined = [...allContent.bookData, ...allContent.gameData, ...allContent.movieData, ...allContent.tvData]
-        setCombinedMedia(combined)
+        // combined = [...allContent.bookData, ...allContent.gameData, ...allContent.movieData, ...allContent.tvData]
+        // setCombinedMedia(combined)
         const token = localStorage.getItem("token")
         if (token) {
             // Get user info
             getUser(token)
         }
+
     }, [])
-
-    console.log("props.user ", props.user)
-
-    console.log(combinedMedia)
 
     return (
         <div className="user-home-main">

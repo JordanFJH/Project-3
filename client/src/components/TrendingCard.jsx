@@ -1,12 +1,18 @@
 import { useState } from "react";
+import { getOneTrend } from "../functions/userMediaFunctions";
 
 
+function TrendingCard({ con, setShowTrend, setSpecificTrend }) {
 
-function TrendingCard({ con }) {
+    async function handleClick() {
+        setShowTrend(true)
+        getOneTrend(con, setSpecificTrend)
+    }
+
     return (
-        <div className="">
+        <div onClick={handleClick} className="flex flex-col items-center border-solid border-black border-2">
             <h2 className="mb-0">{con?.name}</h2>
-            <h3 className="mt-0">{con?.type}</h3>
+            <h3 className="mt-0 text-green-800">{con?.type}</h3>
         </div>
     );
 }

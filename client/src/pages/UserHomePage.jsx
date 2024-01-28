@@ -1,4 +1,3 @@
-import allContent from "../../dummyData";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -14,6 +13,8 @@ function UserHomePage(props) {
 
     let [combinedMedia, setCombinedMedia] = useState([])
     let [trendingContent, setTrendingContent] = useState([])
+    let [specificTrend, setSpecificTrend] = useState({})
+    let [showTrend, setShowTrend] = useState(false)
     let choppedMedia = combinedMedia
 
     function showConsuming(content, index) {
@@ -61,7 +62,12 @@ function UserHomePage(props) {
     console.log("chopped media Array", choppedMedia)
     return (
         <div className="user-home-main">
-            <section className="h-full flex flex-col justify-around w-4/12 border-black border-2 border-solid">
+            <section className="h-full flex flex-col justify-around w-2/12 border-black border-2 border-solid">
+            <Link to="/search">
+                    <div className="w-full">
+                        <h2>Search</h2>
+                    </div>
+                </Link>
                 <div className="h-1/4 w-full border-black border-2 border-solid">
                     <h5 className="underline">Currently Consuming</h5>
                     {props.user.username ?
@@ -90,18 +96,30 @@ function UserHomePage(props) {
             </section>
             <section className="h-full w-5/12 border-black border-2 border-solid flex flex-col items-center">
                 <h2 className="underline">What's Trending</h2>
+                <h5 className="m-0">(Click for more info)</h5>
                 <div className="border-black border-2 border-solid h-full w-full overflow-scroll">
-                    {trendingContent.map((con, index) => <TrendingCard con={con} key={index}/>)}
+                    {trendingContent.map((con, index) => <TrendingCard 
+                    con={con} 
+                    key={index} 
+                    setShowTrend={setShowTrend} 
+                    setSpecificTrend={setSpecificTrend}
+                    />)}
                 </div>
             </section>
-            <section className="flex items-center">
-                <Link to="/search">
-                    <div className="border-black border-2 border-solid w-full">
-                        <h2>Search</h2>
-
-                    </div>
-                </Link>
+            {showTrend &&
+            <section className="flex items-center w-3/12 h-full flex flex-col">
+                <button onClick={() => setShowTrend(false)} className="">X</button>
+                <div className="w-full">
+                    <img src={specificTrend.imgURL} alt="Poster Picture" className="w-full h-full"/>
+                </div>
+                <h2 className="underline">{specificTrend.name}</h2>
+                <h3>Type: {specificTrend.type}</h3>
+                <h3>Runtime: {specificTrend.length}</h3>
+                <h3 className="underline mb-0">Overview</h3>
+                <h3>{specificTrend.desc}</h3>
+                <button>Add Media</button>
             </section>
+}
         </div>
     );
 }

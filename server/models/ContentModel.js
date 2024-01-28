@@ -6,6 +6,8 @@ const contentSchema = new Schema({
     name: { type: String, require: true },
     id: { type: String, require: true },
     length: { type: String, require: true },
+    desc: { type: String },
+    imgURL: { type: String },
     progress: { type: String, default: "0" },
     consuming: { type: Boolean, default: false },
     completed: { type: Boolean, default: false },

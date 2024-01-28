@@ -32,6 +32,7 @@ function DisplaySelectedSearch({ con }) {
             </div>
             <div className='flex flex-col items-center'>
                 <h2>{con.name}</h2>
+                {con.author && <h2 className='mt-0'>{con.author}</h2>}
                 <h2>Length: {con.length} {lengthType}</h2>
                 <h2 className='mb-0 underline'>Overview</h2>
                 <h3 className=''>{con.desc}</h3>

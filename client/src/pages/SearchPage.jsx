@@ -69,7 +69,7 @@ function SearchPage(props) {
                 </section>
                 <section className="border-solid border-black border-2 w-2/5 overflow-scroll">
                     {selectedSearch.name ?
-                    <DisplaySelectedSearch con={selectedSearch}/> : <h3>Search for more info</h3>
+                    <DisplaySelectedSearch con={selectedSearch}/> : <h3 className="text-center underline">Search for more info</h3>
 }
                 </section>
             </div>

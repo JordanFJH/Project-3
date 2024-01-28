@@ -97,7 +97,7 @@ function UserMediaPage(props) {
             // let fakeArray = [...combinedMedia]
             // fakeArray.splice(indexNumber, 1, activeInfo)
             // console.log(fakeArray)
-            
+
         } else {// If it is completed
             activeInfo.progress = "0"
             activeInfo.completed = false;
@@ -140,7 +140,7 @@ function UserMediaPage(props) {
             setCombinedMedia(data.data)
             setInput("")
             setStartUpdate(false)
-            
+
         } else { // if media is being consumed
             activeInfo.consuming = false
             await axios.put("/content", activeInfo)
@@ -153,7 +153,25 @@ function UserMediaPage(props) {
             setInput("")
             setStartUpdate(false)
         }
-        
+
+    }
+    // Remove the selected media
+    async function handleRemove() {
+        let payload = {...activeInfo}
+        payload.username = props.user?.username
+        console.log("payload sent to delete", payload)
+        try {
+            await axios.delete("/content", {data: payload})
+            setDisplayInfo(false)
+            const data = await axios.get("/content", {
+                headers: {
+                    Username: props.user?.username
+                }
+            })
+            setCombinedMedia(data.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // Filtering display
@@ -221,6 +239,8 @@ function UserMediaPage(props) {
                     <button onClick={() => setStartUpdate(true)}>Update Progress</button>
                     <br /><br />
                     <button onClick={handleComplete}>{activeInfo.completed == false ? "Mark as Complete" : "Mark as Incomplete"}</button>
+                    <br /><br />
+                    <button onClick={handleRemove}>Remove Media</button>
                     {startUpdate &&
                         <div>
                             <h3>How many {activeInfo.lengthType} did you complete</h3>

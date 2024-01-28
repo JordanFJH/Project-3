@@ -2,6 +2,7 @@ const User = require("../models/UserModel")
 const Content = require("../models/ContentModel")
 
 
+// Getting all of the content
 module.exports.getInfo = async (req, res) => {
     console.log("trying to get the user's content info")
     try {
@@ -18,12 +19,12 @@ module.exports.getInfo = async (req, res) => {
 
 }
 
+// Adding Content
 module.exports.addContent = async (req, res) => {
     console.log("In the addContent Function")
 
     try {
         const username = req.header("Username")
-
         const media = await Content.create(req.body)
         console.log("The media created ", media)
         await User.findOneAndUpdate({ username: username }, {
@@ -33,7 +34,6 @@ module.exports.addContent = async (req, res) => {
         })
         res.status(200).json({ message: "Content Created" })
         //const foundUser = await User.findOne({ username: username })
-
 
     } catch (error) {
         console.log(error.message)
@@ -55,14 +55,22 @@ module.exports.updateContent = async (req, res) => {
     }
 }
 
-// Marking the content as complete
-module.exports.completeContent = async (req, res) => {
-    console.log("Handling completion of content")
+// Deleting the content
+module.exports.delete = async (req, res) => {
+    console.log("Handling deleting of content")
+    console.log("body of deleting account", req.body)
     try {
-
-        res.send(200).json({ message: "Content marked as complete" })
+        const username = req.body.username
+        await Content.findByIdAndDelete(req.body._id)
+        await User.findOneAndUpdate({ username: username }, {
+            $pull: {
+                content: req.body._id
+            }
+        })
+        res.status(200).json({ message: "Content deleted" })
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ message: error.message })
     }
+
 }

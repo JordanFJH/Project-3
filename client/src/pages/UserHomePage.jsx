@@ -6,7 +6,7 @@ import TrendingCard from "../components/TrendingCard";
 
 
 function UserHomePage(props) {
-    
+
 
     // const token = localStorage.getItem("token")
     // console.log("token from UserHomePage", token)
@@ -48,6 +48,34 @@ function UserHomePage(props) {
         //setIsLoading(false);
     }
 
+    // Add media to collections function
+    async function addMedia() {
+        try {
+            let singleObj = {
+                name: specificTrend.name,
+                type: specificTrend.type,
+                length: specificTrend.length,
+                id: specificTrend.id
+            }
+            await axios.post("/content", singleObj, {
+                headers: {
+                    Username: props.user.username
+                }
+            })
+
+            const data = await axios.get("/content", { // get user collection again
+                headers: {
+                    Username: props.user?.username
+                }
+            })
+            console.log("From the addmedia ", data.data)
+            setCombinedMedia(data.data)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
 
     useEffect(() => {
         const token = localStorage.getItem("token")
@@ -59,11 +87,10 @@ function UserHomePage(props) {
     }, [])
 
     choppedMedia = [...combinedMedia]
-    console.log("chopped media Array", choppedMedia)
     return (
         <div className="user-home-main">
             <section className="h-full flex flex-col justify-around w-2/12 border-black border-2 border-solid">
-            <Link to="/search">
+                <Link to="/search">
                     <div className="w-full">
                         <h2>Search</h2>
                     </div>
@@ -71,16 +98,16 @@ function UserHomePage(props) {
                 <div className="h-1/4 w-full border-black border-2 border-solid">
                     <h5 className="underline">Currently Consuming</h5>
                     {props.user.username ?
-                    choppedMedia.filter((cont) => cont.consuming == true).map(showConsuming) : "Loading"
-}
+                        choppedMedia.filter((cont) => cont.consuming == true).map(showConsuming) : "Loading"
+                    }
                 </div>
                 <div>
                     <h5 className="underline">Media Snapshot</h5>
-                    { props.user.username ? <>
-                    <h4>Books: {choppedMedia.filter((con) => con.type == "book").length}</h4>
-                    <h4>TV Shows: {choppedMedia.filter((con) => con.type == "tv").length}</h4>
-                    <h4>Movies: {choppedMedia.filter((con) => con.type == "movie").length}</h4>
-                    <h4>Games: {choppedMedia.filter((con) => con.type == "game").length}</h4>
+                    {props.user.username ? <>
+                        <h4>Books: {choppedMedia.filter((con) => con.type == "book").length}</h4>
+                        <h4>TV Shows: {choppedMedia.filter((con) => con.type == "tv").length}</h4>
+                        <h4>Movies: {choppedMedia.filter((con) => con.type == "movie").length}</h4>
+                        <h4>Games: {choppedMedia.filter((con) => con.type == "game").length}</h4>
                     </> : "Loading"
                     }
                 </div>
@@ -98,28 +125,28 @@ function UserHomePage(props) {
                 <h2 className="underline">What's Trending</h2>
                 <h5 className="m-0">(Click for more info)</h5>
                 <div className="border-black border-2 border-solid h-full w-full overflow-scroll">
-                    {trendingContent.map((con, index) => <TrendingCard 
-                    con={con} 
-                    key={index} 
-                    setShowTrend={setShowTrend} 
-                    setSpecificTrend={setSpecificTrend}
+                    {trendingContent.map((con, index) => <TrendingCard
+                        con={con}
+                        key={index}
+                        setShowTrend={setShowTrend}
+                        setSpecificTrend={setSpecificTrend}
                     />)}
                 </div>
             </section>
             {showTrend &&
-            <section className="flex items-center w-3/12 h-full flex flex-col">
-                <button onClick={() => setShowTrend(false)} className="">X</button>
-                <div className="w-full">
-                    <img src={specificTrend.imgURL} alt="Poster Picture" className="w-full h-full"/>
-                </div>
-                <h2 className="underline">{specificTrend.name}</h2>
-                <h3>Type: {specificTrend.type}</h3>
-                <h3>Runtime: {specificTrend.length}</h3>
-                <h3 className="underline mb-0">Overview</h3>
-                <h3>{specificTrend.desc}</h3>
-                <button>Add Media</button>
-            </section>
-}
+                <section className="flex items-center w-3/12 h-full flex flex-col overflow-scroll">
+                    <button onClick={() => setShowTrend(false)} className="">X</button>
+                    <div className="w-full">
+                        <img src={specificTrend.imgURL} alt="Poster Picture" className="w-full h-full" />
+                    </div>
+                    <h2 className="underline">{specificTrend.name}</h2>
+                    <h3>Type: {specificTrend.type}</h3>
+                    <h3>Runtime: {specificTrend.length}</h3>
+                    <h3 className="underline mb-0">Overview</h3>
+                    <h3>{specificTrend.desc}</h3>
+                    <button onClick={addMedia}>Add Media</button>
+                </section>
+            }
         </div>
     );
 }

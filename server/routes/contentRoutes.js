@@ -11,7 +11,7 @@ router.post("/", constCtrl.addContent)
 
 router.put("/", constCtrl.updateContent)
 
-router.put("/complete", constCtrl.completeContent)
+router.delete("/", constCtrl.delete)
 
 
 module.exports = router

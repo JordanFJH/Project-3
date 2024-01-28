@@ -33,6 +33,8 @@ function DisplaySelectedSearch({ con, user }) {
                 name: con.name,
                 type: con.type,
                 length: con.length,
+                desc: con.desc,
+                imgURL: con.imgURL,
                 id: con.id
             }
             await axios.post("/content", singleObj, {

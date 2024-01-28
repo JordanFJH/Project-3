@@ -1,8 +1,10 @@
-import React from 'react';
+import axios from "axios";
+import { useState } from "react";
 
-function DisplaySelectedSearch({ con }) {
+function DisplaySelectedSearch({ con, user }) {
 
     let lengthType = "";
+    let [added, setAdded] = useState(false)
 
     function setLengthType() {
         switch (con.type) {
@@ -25,6 +27,37 @@ function DisplaySelectedSearch({ con }) {
 
     setLengthType()
 
+    async function addMedia() {
+        try {
+            let singleObj = {
+                name: con.name,
+                type: con.type,
+                length: con.length,
+                id: con.id
+            }
+            await axios.post("/content", singleObj, {
+                headers: {
+                    Username: user.username
+                }
+            })
+            setAdded(true)
+            
+
+            //Functionality for getting the user data, don't think I need this for here
+            // May reenable for comparing if already in library
+            // const data = await axios.get("/content", { // get user collection again
+            //     headers: {
+            //         Username: props.user?.username
+            //     }
+            // })
+            // console.log("From the addmedia ", data.data)
+            // setCombinedMedia(data.data)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     return (
         <div className=''>
             <div className='w-full'>
@@ -36,7 +69,8 @@ function DisplaySelectedSearch({ con }) {
                 <h2>Length: {con.length} {lengthType}</h2>
                 <h2 className='mb-0 underline'>Overview</h2>
                 <h3 className=''>{con.desc}</h3>
-                <button>Add Media</button>
+                {added == true ? <h2>In Library</h2> : <button onClick={addMedia}>Add Media</button>}
+                
             </div>
 
         </div>

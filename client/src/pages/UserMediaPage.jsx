@@ -229,8 +229,13 @@ function UserMediaPage(props) {
             </section>
             {displayInfo &&
                 <section className="border-solid border-black border-2 w-2/5">
+                    <div className="w-full">
+                        <img src={activeInfo.imgURL} alt="Picture of content" className="w-full" />
+                    </div>
                     <h3>{activeInfo.name}</h3>
                     <h4>{activeInfo.type}</h4>
+                    <h3 className="underline">Overview</h3>
+                    <h4>{activeInfo.desc}</h4>
                     <h4>Your progress: {activeInfo.progress} {activeInfo.lengthType}</h4>
                     <h4>You are {((activeInfo.progress / activeInfo.length) * 100).toFixed(2)} % complete</h4>
                     <h4>Total Length: {activeInfo.length} {activeInfo.lengthType}</h4>

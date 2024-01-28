@@ -35,7 +35,10 @@ function ContentCard({ content, setActiveInfo, setDisplayInfo, setStartUpdate })
 
     return (
         <div className="card-display" onClick={setItUp}>
-            <h3>{content.name}</h3>
+            <div className="w-full text-center">
+                <img src={content.imgURL} alt="Picture Not Found" className="w-2/4"/>
+            </div>
+            <h3 className="mb-0">{content.name}</h3>
             <h4>{content.type}</h4>
             <h4>{content.completed ? "Completed" : "Incomplete"}</h4>
         </div>

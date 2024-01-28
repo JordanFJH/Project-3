@@ -55,6 +55,8 @@ function UserHomePage(props) {
                 name: specificTrend.name,
                 type: specificTrend.type,
                 length: specificTrend.length,
+                desc: specificTrend.desc,
+                imgURL: specificTrend.imgURL,
                 id: specificTrend.id
             }
             await axios.post("/content", singleObj, {

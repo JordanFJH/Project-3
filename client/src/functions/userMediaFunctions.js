@@ -37,6 +37,7 @@ export async function getTrendingContent(setTrendingContent) {
             movieObj.name = result.title
             movieObj.id = result.id
             movieObj.type = result.media_type
+            movieObj.imgURL = `https://image.tmdb.org/t/p/original${result.backdrop_path}`
             trendingArray.push(movieObj)
         }
         
@@ -47,6 +48,8 @@ export async function getTrendingContent(setTrendingContent) {
     }
 }
 
+
+// Setting single trend content for more info
 export async function getOneTrend(con, setSpecificTrend) {
     console.log("Trying to get individual data")
     let oneObj = {}

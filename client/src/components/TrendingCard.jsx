@@ -10,9 +10,14 @@ function TrendingCard({ con, setShowTrend, setSpecificTrend }) {
     }
 
     return (
-        <div onClick={handleClick} className="flex flex-col items-center border-solid border-black border-2">
+        <div onClick={handleClick} className="flex flex-col items-center border-solid border-black border-2 h-64">
+            <div className="h-36">
+                <img src={con.imgURL} alt="Show or movie Picture" className="h-full" />
+            </div>
+
             <h2 className="mb-0">{con?.name}</h2>
             <h3 className="mt-0 text-green-800">{con?.type}</h3>
+
         </div>
     );
 }

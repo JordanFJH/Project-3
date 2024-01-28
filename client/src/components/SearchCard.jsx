@@ -3,6 +3,10 @@
 function SearchCard({ con, setSelectedSearch }) {
 
 
+    async function handleClick() {
+        
+    }
+
     return (
         <div className='border-green-800 border-solid border-2'>
             <div className='w-full'>

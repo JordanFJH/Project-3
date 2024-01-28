@@ -1,6 +1,8 @@
 let gameKey = import.meta.env.VITE_GAME_Token
 let tvMovieKey = import.meta.env.VITE_MOVIE_Token
 
+
+// Getting movie array
 export async function getMovieArray(input, setArrayList) {
     console.log("Getting Movie Content")
     let movieArray = []
@@ -36,7 +38,37 @@ export async function getMovieArray(input, setArrayList) {
 }
 
 export async function getTVArray(input, setArrayList) {
-    
+    console.log("Getting Television Content")
+    let tvArray = []
+    let searchPhrase = encodeURI(input)
+    let URL = `https://api.themoviedb.org/3/search/tv?query=${searchPhrase}&include_adult=true&language=en-US&page=1`
+    try {
+        const options = {
+            method: "GET",
+            headers: {
+                accept: "application/json",
+                Authorization: "Bearer " + tvMovieKey
+            }
+        }
+        let response = await fetch(URL, options)
+        let data = await response.json()
+        data = data.results
+        console.log("Movie Search Data", data)
+        // data = data.filter((con) => con.title?.length > 0)
+        for (const result of data) {
+            let tvObj = {
+                name: result.name,
+                id: result.id,
+                type: "tv",
+                imgURL: `https://image.tmdb.org/t/p/original${result.backdrop_path}`
+            }
+            tvArray.push(tvObj)
+        }
+        setArrayList(tvArray)
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 
@@ -69,5 +101,5 @@ export async function getGameArray(input, setArrayList) {
 }
 
 export async function getBookArray(input, setArrayList) {
-    
+
 }

@@ -12,7 +12,7 @@ function SearchPage(props) {
     let [arrayList, setArrayList] = useState([])
 
     async function handleSubmit(e) {
-        if (!input) { // Exits submit function if search input is empty
+        if (!mediaType) { // Exits submit function if search input is empty
             return
         }
         console.log("handling Submit")

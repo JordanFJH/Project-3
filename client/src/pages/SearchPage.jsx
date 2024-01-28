@@ -1,9 +1,12 @@
 import { useState } from "react";
+import SearchCard from "../components/SearchCard";
 
 
 function SearchPage(props) {
 
     let [mediaType, setMediaType] = useState("")
+    let [selectedSearch, setSelectedSearch] = useState({})
+    let [arrayList, setArrayList] = useState([])
 
     async function handleSubmit(e) {
         console.log("handling Submit")
@@ -26,7 +29,11 @@ function SearchPage(props) {
             </section>
             <div className="border-solid border-black border-2 flex h-3/5 w-2/3 justify-between">
                 <section className="border-solid border-black border-2 w-2/5">
-                    Search Results
+                    {arrayList.map((con, key) => <SearchCard 
+                    con={con} 
+                    key={index}
+                    setSelectedSearch={setSelectedSearch}
+                    />)}
                 </section>
                 <section className="border-solid border-black border-2 w-2/5">
                     In depth search

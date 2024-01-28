@@ -16,6 +16,8 @@ export function checkProgress(info) {
     }
 }
 
+
+// Setting array for trending content
 export async function getTrendingContent(setTrendingContent) {
     console.log("Getting Trending Content")
     let trendingArray = []

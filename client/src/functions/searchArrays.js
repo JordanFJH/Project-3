@@ -1,5 +1,6 @@
 let gameKey = import.meta.env.VITE_GAME_Token
 let tvMovieKey = import.meta.env.VITE_MOVIE_Token
+let bookKey = import.meta.env.VITE_BOOK_Token
 
 
 // Getting movie array
@@ -100,6 +101,29 @@ export async function getGameArray(input, setArrayList) {
 
 }
 
+// Searching for book
 export async function getBookArray(input, setArrayList) {
+    console.log("Getting book content")
+    let searchPhrase = encodeURI(input)
+    let bookArray = []
+    let URL = `https://www.googleapis.com/books/v1/volumes?q=${searchPhrase}&key=${bookKey}`
+    try {
+        const response = await fetch(URL)
+        let data = await response.json()
+        data = data.items
+        console.log("Book search: ", data)
+        for (const result of data) {
+            let bookObj = {
+                id: result.id,
+                type: "book",
+                name: result.volumeInfo.title,
+                imgURL: result.volumeInfo.imageLinks.thumbnail
+            }
+            bookArray.push(bookObj)
+        }
+        setArrayList(bookArray)
+    } catch (error) {
+        console.log(error)
+    }
 
 }

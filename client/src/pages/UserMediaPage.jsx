@@ -77,9 +77,10 @@ function UserMediaPage(props) {
 
     }
 
+    // Handle the completion of the content once clicked
     async function handleComplete() {
         if (!activeInfo.completed) {// If it's not completed
-            activeInfo.progress = activeInfo.length //Setting progress to the max length
+            activeInfo.progress = "Complete" //Setting progress to the string "Completed"
             activeInfo.completed = true // setting completed to true
             activeInfo.consuming = false
             await axios.put("/content", activeInfo)
@@ -244,9 +245,6 @@ function UserMediaPage(props) {
                     <br /><br />
                     <button onClick={() => setStartUpdate(true)}>Update Progress</button>
                     <br /><br />
-                    <button onClick={handleComplete}>{activeInfo.completed == false ? "Mark as Complete" : "Mark as Incomplete"}</button>
-                    <br /><br />
-                    <button onClick={handleRemove}>Remove Media</button>
                     {startUpdate &&
                         <div>
                             <h3>How many {activeInfo.lengthType} did you complete</h3>
@@ -254,6 +252,10 @@ function UserMediaPage(props) {
                             <button onClick={updateProgress}>Submit</button>
                         </div>
                     }
+                    <button onClick={handleComplete}>{activeInfo.completed == false ? "Mark as Complete" : "Mark as Incomplete"}</button>
+                    <br /><br />
+                    <button onClick={handleRemove}>Remove Media</button>
+                    
                 </section>
             }
         </div>

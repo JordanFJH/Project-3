@@ -12,6 +12,7 @@ function SearchPage(props) {
     let [selectedSearch, setSelectedSearch] = useState({})
     let [arrayList, setArrayList] = useState([])
     let [library, setLibrary] = useState([])
+    let [displayIndex, setDisplayIndex] = useState(-1)
 
     async function getUserLibrary() {
         try {
@@ -25,7 +26,7 @@ function SearchPage(props) {
         } catch (error) {
             console.log(error)
         }
-        
+
     }
 
     useEffect(() => {
@@ -78,7 +79,7 @@ function SearchPage(props) {
                 <input type="text" value={input} onChange={handleChange} />
                 <button onClick={handleSubmit}>Search</button>
                 <br />
-                <button onClick={() => {setArrayList([]); setInput(""); setSelectedSearch({})}}>Clear Search</button>
+                <button onClick={() => { setArrayList([]); setInput(""); setSelectedSearch({}) }}>Clear Search</button>
             </section>
             <div className="border-solid border-black border-2 flex h-3/5 w-2/3 justify-between">
                 <section className="border-solid border-black border-2 w-2/5 overflow-scroll">
@@ -90,8 +91,9 @@ function SearchPage(props) {
                 </section>
                 <section className="border-solid border-black border-2 w-2/5 overflow-scroll">
                     {selectedSearch.name ?
-                    <DisplaySelectedSearch con={selectedSearch} user={props.user} library={library}/> : <h3 className="text-center underline">Search for more info</h3>
-}
+                        <DisplaySelectedSearch con={selectedSearch} user={props.user} library={library} /> : <h3 className="text-center underline">Search for more info</h3>
+                    }
+                    { }
                 </section>
             </div>
         </div>

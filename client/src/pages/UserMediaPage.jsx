@@ -228,7 +228,7 @@ function UserMediaPage(props) {
                 </section>
             </section>
             {displayInfo &&
-                <section className="border-solid border-black border-2 w-2/5">
+                <section className="border-solid border-black border-2 w-2/5 overflow-scroll">
                     <div className="w-full">
                         <img src={activeInfo.imgURL} alt="Picture of content" className="w-full" />
                     </div>

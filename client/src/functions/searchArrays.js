@@ -117,8 +117,8 @@ export async function getBookArray(input, setArrayList) {
                 id: result.id,
                 type: "book",
                 name: result.volumeInfo.title,
-                imgURL: result.volumeInfo.imageLinks.thumbnail,
-                author: result.volumeInfo.authors[0]
+                imgURL: result.volumeInfo?.imageLinks?.thumbnail,
+                author: result.volumeInfo?.authors[0]
             }
             bookArray.push(bookObj)
         }

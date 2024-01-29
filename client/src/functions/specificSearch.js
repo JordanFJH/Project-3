@@ -5,6 +5,7 @@ let bookKey = import.meta.env.VITE_BOOK_Token
 // NEED
 // Length, name, id, desc, type, image URL
 
+// Get info of book clicked
 export async function getBookInfo(con, setSelectedSearch) {
     console.log("Getting book info")
     const URL = `https://www.googleapis.com/books/v1/volumes/${con.id}?key=${bookKey}`
@@ -14,7 +15,8 @@ export async function getBookInfo(con, setSelectedSearch) {
         let bookObj = {
             ...con,
             desc: data.volumeInfo.description,
-            length: data.volumeInfo.pageCount
+            length: data.volumeInfo.pageCount,
+            infoLink: data.volumeInfo.infoLink
         }
         setSelectedSearch(bookObj)
     } catch (error) {

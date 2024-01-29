@@ -16,12 +16,24 @@ function UserHomePage(props) {
     let [specificTrend, setSpecificTrend] = useState({})
     let [showTrend, setShowTrend] = useState(false)
     let choppedMedia = combinedMedia
+    let exists = false
 
     function showConsuming(content, index) {
         return (
             <h4 key={index}>{content.name}: {(content.progress / content.length).toFixed(2) * 100}% </h4>
         )
     }
+
+    function checkLibrary() {
+        for (const item of combinedMedia) {
+            if (specificTrend.type == item.type && specificTrend.id == item.id) {
+                console.log("Item exists in library")
+                exists = true;
+            }
+        }
+    }
+
+    checkLibrary()
     async function getUser(token) { //Getting user info and data
         try {
             // Setting the user
@@ -148,7 +160,7 @@ function UserHomePage(props) {
                     <a href={specificTrend.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>
                     <h3 className="underline mb-0">Overview</h3>
                     <h3>{specificTrend.desc}</h3>
-                    <button onClick={addMedia}>Add Media</button>
+                    {exists == true ? <h2>In Your Library</h2> : <button onClick={addMedia}>Add Media</button>}
                 </section>
             }
         </div>

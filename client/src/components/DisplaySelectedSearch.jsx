@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function DisplaySelectedSearch({ con, user, library }) {
+function DisplaySelectedSearch({ con, user, library, setSelectedSearch }) {
 
     let lengthType = "";
     let exists = false;
@@ -40,6 +40,7 @@ function DisplaySelectedSearch({ con, user, library }) {
 
     checkLibrary()
 
+    //Function for adding media to library
     async function addMedia() {
         try {
             let singleObj = {
@@ -57,7 +58,7 @@ function DisplaySelectedSearch({ con, user, library }) {
                 }
             })
             setAdded(true)
-            
+
 
             //Functionality for getting the user data, don't think I need this for here
             // May reenable for comparing if already in library
@@ -75,21 +76,28 @@ function DisplaySelectedSearch({ con, user, library }) {
     }
 
     return (
-        <div>
-            <div className='w-full'>
-                <img src={con.imgURL} alt="Picture Not Found" className='w-full' />
+        <div className="w-3/4 h-1/2 absolute bg-green-500 overflow-y-scroll flex flex-col border-solid border-black border-4 rounded">
+            <button className="absolute right-0" onClick={() => {setSelectedSearch({})}}>X</button>
+            <div className="flex p-3">
+                <div className='w-1/2'>
+                    <img src={con.imgURL} alt="Picture Not Found" className='w-full' />
+                </div>
+                <div className='flex flex-col items-center w-1/2'>
+                    <h2>{con.name}</h2>
+                    {con.author && <h2 className='mt-0'>{con.author}</h2>}
+                    <h2>Length: {con.length} {lengthType}</h2>
+                    {con.infoLink &&
+                        <a href={con.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>}
+                </div>
             </div>
-            <div className='flex flex-col items-center'>
-                <h2>{con.name}</h2>
-                {con.author && <h2 className='mt-0'>{con.author}</h2>}
-                <h2>Length: {con.length} {lengthType}</h2>
-                {con.infoLink &&
-                    <a href={con.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>}
+            <div className="text-center">
+                <hr className="border-black border-solid border-2"/>
                 <h2 className='mb-0 underline'>Overview</h2>
                 <h3 className=''>{con.desc}</h3>
                 {exists == true ? <h2>In Your Library</h2> : <button onClick={addMedia}>Add Media</button>}
-                
             </div>
+
+
 
         </div>
     );

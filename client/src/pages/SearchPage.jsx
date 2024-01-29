@@ -12,7 +12,6 @@ function SearchPage(props) {
     let [selectedSearch, setSelectedSearch] = useState({})
     let [arrayList, setArrayList] = useState([])
     let [library, setLibrary] = useState([])
-    let [displayIndex, setDisplayIndex] = useState(-1)
 
     async function getUserLibrary() {
         try {
@@ -66,9 +65,13 @@ function SearchPage(props) {
 
     return (
         <div className="search-main">
-            {selectedSearch.name ? <div className="z-10 bg-red-500 w-3/4 h-1/2 absolute">Testing Foreground <button onClick={() => {setSelectedSearch({})}}>Exit</button></div> : ""
-
-            }
+            { selectedSearch.name &&
+                <DisplaySelectedSearch
+                con={selectedSearch}
+                user={props.user}
+                library={library}
+                setSelectedSearch={setSelectedSearch}
+            />}
             <section className="border-solid border-black border-2 w-2/6 h-1/4">
                 <div className="flex justify-around">
                     <button onClick={() => setMediaType("Movie")}>Movie</button>
@@ -93,9 +96,6 @@ function SearchPage(props) {
                     />)}
                 </section>
                 <section className="border-solid border-black border-2 w-2/5 overflow-scroll">
-                    {selectedSearch.name ?
-                        <DisplaySelectedSearch con={selectedSearch} user={props.user} library={library} /> : <h3 className="text-center underline">Search for more info</h3>
-                    }
 
                 </section>
             </div>

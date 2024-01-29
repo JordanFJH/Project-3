@@ -38,6 +38,7 @@ export async function getMovieArray(input, setArrayList) {
 
 }
 
+//Searching TV
 export async function getTVArray(input, setArrayList) {
     console.log("Getting Television Content")
     let tvArray = []
@@ -54,7 +55,7 @@ export async function getTVArray(input, setArrayList) {
         let response = await fetch(URL, options)
         let data = await response.json()
         data = data.results
-        console.log("Movie Search Data", data)
+        console.log("TV Search Data", data)
         // data = data.filter((con) => con.title?.length > 0)
         for (const result of data) {
             let tvObj = {

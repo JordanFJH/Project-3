@@ -83,7 +83,8 @@ export async function getOneTrend(con, setSpecificTrend) {
             id: data.id,
             length: data.runtime,
             desc: data.overview,
-            imgURL: `https://image.tmdb.org/t/p/original${data.backdrop_path}`
+            imgURL: `https://image.tmdb.org/t/p/original${data.backdrop_path}`,
+            infoLink: data.homepage
         }
         setSpecificTrend(oneObj)
     } catch (error) {

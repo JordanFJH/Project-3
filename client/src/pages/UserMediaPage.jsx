@@ -234,6 +234,7 @@ function UserMediaPage(props) {
                     </div>
                     <h3>{activeInfo.name}</h3>
                     <h4>{activeInfo.type}</h4>
+                    <a href={activeInfo.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>
                     <h3 className="underline">Overview</h3>
                     <h4>{activeInfo.desc}</h4>
                     <h4>Your progress: {activeInfo.progress} {activeInfo.lengthType}</h4>

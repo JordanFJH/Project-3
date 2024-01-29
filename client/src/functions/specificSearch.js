@@ -31,12 +31,13 @@ export async function getGameInfo(con, setSelectedSearch) {
     let gameObj = {
         ...con,
         desc: data.description,
-        length: data.playtime
+        length: data.playtime,
+        infoLink: data.website
     }
     setSelectedSearch(gameObj)
 }
 
-// Getting specific tv show data
+// Getting specific tv show clicked
 export async function getTvInfo(con, setSelectedSearch) {
     console.log("Getting Television info")
     const URL = `https://api.themoviedb.org/3/tv/${con.id}?language=en-US`
@@ -54,7 +55,8 @@ export async function getTvInfo(con, setSelectedSearch) {
         let tvObj = {
             ...con,
             desc: data.overview,
-            length: data.number_of_episodes
+            length: data.number_of_episodes,
+            infoLink: data.homepage
         }
         setSelectedSearch(tvObj)
       } catch (error) {
@@ -80,7 +82,8 @@ export async function getMovieInfo(con, setSelectedSearch) {
         let movieObj = {
             ...con,
             desc: data.overview,
-            length: data.runtime
+            length: data.runtime,
+            infoLink: data.homepage
         }
         setSelectedSearch(movieObj)
       } catch (error) {

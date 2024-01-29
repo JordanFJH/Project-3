@@ -34,6 +34,7 @@ function DisplaySelectedSearch({ con, user }) {
                 type: con.type,
                 length: con.length,
                 desc: con.desc,
+                infoLink: con.infoLink,
                 imgURL: con.imgURL,
                 id: con.id
             }
@@ -69,6 +70,8 @@ function DisplaySelectedSearch({ con, user }) {
                 <h2>{con.name}</h2>
                 {con.author && <h2 className='mt-0'>{con.author}</h2>}
                 <h2>Length: {con.length} {lengthType}</h2>
+                {con.infoLink &&
+                    <a href={con.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>}
                 <h2 className='mb-0 underline'>Overview</h2>
                 <h3 className=''>{con.desc}</h3>
                 {added == true ? <h2>In Library</h2> : <button onClick={addMedia}>Add Media</button>}

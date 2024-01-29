@@ -57,6 +57,7 @@ function UserHomePage(props) {
                 length: specificTrend.length,
                 desc: specificTrend.desc,
                 imgURL: specificTrend.imgURL,
+                infoLink: specificTrend.infoLink,
                 id: specificTrend.id
             }
             await axios.post("/content", singleObj, {
@@ -143,7 +144,8 @@ function UserHomePage(props) {
                     </div>
                     <h2 className="underline">{specificTrend.name}</h2>
                     <h3>Type: {specificTrend.type}</h3>
-                    <h3>Runtime: {specificTrend.length}</h3>
+                    <h3>Runtime: {specificTrend.length} minutes</h3>
+                    <a href={specificTrend.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>
                     <h3 className="underline mb-0">Overview</h3>
                     <h3>{specificTrend.desc}</h3>
                     <button onClick={addMedia}>Add Media</button>

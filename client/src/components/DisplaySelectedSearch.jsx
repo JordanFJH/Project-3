@@ -75,7 +75,7 @@ function DisplaySelectedSearch({ con, user, library }) {
     }
 
     return (
-        <div className=''>
+        <div>
             <div className='w-full'>
                 <img src={con.imgURL} alt="Picture Not Found" className='w-full' />
             </div>

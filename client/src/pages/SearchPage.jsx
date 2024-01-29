@@ -66,6 +66,9 @@ function SearchPage(props) {
 
     return (
         <div className="search-main">
+            {selectedSearch.name ? <div className="z-10 bg-red-500 w-3/4 h-1/2 absolute">Testing Foreground <button onClick={() => {setSelectedSearch({})}}>Exit</button></div> : ""
+
+            }
             <section className="border-solid border-black border-2 w-2/6 h-1/4">
                 <div className="flex justify-around">
                     <button onClick={() => setMediaType("Movie")}>Movie</button>
@@ -93,7 +96,7 @@ function SearchPage(props) {
                     {selectedSearch.name ?
                         <DisplaySelectedSearch con={selectedSearch} user={props.user} library={library} /> : <h3 className="text-center underline">Search for more info</h3>
                     }
-                    { }
+
                 </section>
             </div>
         </div>

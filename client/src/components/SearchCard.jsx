@@ -29,7 +29,7 @@ function SearchCard({ con, setSelectedSearch }) {
     }
 
     return (
-        <div className='border-green-800 border-solid border-2' onClick={handleClick}>
+        <div className='border-green-800 border-solid border-2 w-56 h-72' onClick={handleClick}>
             <div className='w-full'>
                 <img src={con.imgURL} alt="No picture found" className='w-full' />
             </div>

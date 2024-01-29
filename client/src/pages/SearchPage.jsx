@@ -72,7 +72,7 @@ function SearchPage(props) {
                 library={library}
                 setSelectedSearch={setSelectedSearch}
             />}
-            <section className="border-solid border-black border-2 w-2/6 h-1/4">
+            <section className="border-solid border-black border-2 w-2/6 h-3/4">
                 <div className="flex justify-around">
                     <button onClick={() => setMediaType("Movie")}>Movie</button>
                     <button onClick={() => setMediaType("TV Show")}>Tv Show</button>
@@ -87,16 +87,13 @@ function SearchPage(props) {
                 <br />
                 <button onClick={() => { setArrayList([]); setInput(""); setSelectedSearch({}) }}>Clear Search</button>
             </section>
-            <div className="border-solid border-black border-2 flex h-3/5 w-2/3 justify-between">
-                <section className="border-solid border-black border-2 w-2/5 overflow-scroll">
+            <div className="border-solid border-black border-2 flex h-3/4 w-2/3">
+                <section className="border-solid border-black border-2 overflow-y-scroll flex flex-wrap">
                     {arrayList.map((con, index) => <SearchCard
                         con={con}
                         key={index}
                         setSelectedSearch={setSelectedSearch}
                     />)}
-                </section>
-                <section className="border-solid border-black border-2 w-2/5 overflow-scroll">
-
                 </section>
             </div>
         </div>

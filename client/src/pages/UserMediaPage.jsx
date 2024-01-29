@@ -216,20 +216,28 @@ function UserMediaPage(props) {
         }
     })
 
+    // Function for filtering display array
+    function filterDisplay(e) {
+        setFilterType(e.target.value)
+    }
+
     // console.log("UserMedia Page:" + state)
     return (
         <div className="user-media-main">
             <section className="border-solid border-black border-2 w-2/5 flex flex-col items-center">
                 <h2 className="underline">Your Current Media</h2>
-                <div className="flex w-full justify-around">
-                    <button onClick={() => setFilterType("all")}>All</button>
-                    <button onClick={() => setFilterType("movie")}>Movie</button>
-                    <button onClick={() => setFilterType("tv")}>Television</button>
-                    <button onClick={() => setFilterType("game")}>Game</button>
-                    <button onClick={() => setFilterType("book")}>Book</button>
-                    <button onClick={() => setFilterType("complete")}>Complete</button>
-                    <button onClick={() => setFilterType("incomplete")}>Incomplete</button>
-                </div>
+                <form name="filter-content">
+                    <label htmlFor="filter-content">Select Filter Type: </label>
+                    <select name="filter-content" id="filter-content" onChange={(e) => filterDisplay(e)}>
+                        <option value="all">All</option>
+                        <option value="book">Books</option>
+                        <option value="movie">Movies</option>
+                        <option value="tv">TV Shows</option>
+                        <option value="game">Games</option>
+                        <option value="complete">Complete</option>
+                        <option value="incomplete">Incomplete</option>
+                    </select>
+                </form>
                 <section className="w-full flex flex-col overflow-scroll">
                     {filteredMedia.map((content, index) => <ContentCard
                         content={content}

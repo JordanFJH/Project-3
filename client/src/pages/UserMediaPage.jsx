@@ -13,6 +13,8 @@ function UserMediaPage(props) {
     const [activeInfo, setActiveInfo] = useState({})
     const [input, setInput] = useState("")
     // const [filteredMedia, setFilteredMedia] = useState([])
+
+    //Getting user and data
     async function getUser(token) {
         try {
             // Setting the user
@@ -39,8 +41,6 @@ function UserMediaPage(props) {
     }
 
     useEffect(() => {
-        // combined = [...allContent.bookData, ...allContent.gameData, ...allContent.movieData, ...allContent.tvData]
-        // setCombinedMedia(combined)
         const token = localStorage.getItem("token")
         if (token) {
             // Get user info
@@ -48,8 +48,8 @@ function UserMediaPage(props) {
         }
 
     }, [])
-    
-//Handles the setting of game length
+
+    //Handles the setting of game length
     async function addHourToGame() {
         console.log("Adding hour to total game length")
         let gameNum = Number(activeInfo.length)
@@ -61,9 +61,7 @@ function UserMediaPage(props) {
                 Username: props.user?.username
             }
         })
-        //console.log(data.data)
         setCombinedMedia(data.data)
-        // setStartUpdate(false)
     }
 
 
@@ -75,16 +73,14 @@ function UserMediaPage(props) {
             }
             //Updates info on backend
             activeInfo.progress = input
-            // let updatedInfo = { ...activeInfo, progress: input }
             await axios.put("/content", activeInfo)
-            //checkProgress(activeInfo)
+
             //Gets all info again with updated content
             const data = await axios.get("/content", {
                 headers: {
                     Username: props.user?.username
                 }
             })
-            //console.log(data.data)
             setCombinedMedia(data.data)
             setInput("")
             setStartUpdate(false)
@@ -109,12 +105,6 @@ function UserMediaPage(props) {
             setCombinedMedia(data.data)
             setInput("")
             setStartUpdate(false)
-            // checkProgress(activeInfo)
-            // const indexNumber = combinedMedia.findIndex((item) => item.id == activeInfo.id)
-            // console.log(indexNumber)
-            // let fakeArray = [...combinedMedia]
-            // fakeArray.splice(indexNumber, 1, activeInfo)
-            // console.log(fakeArray)
 
         } else {// If it is completed
             activeInfo.progress = "0"
@@ -128,17 +118,11 @@ function UserMediaPage(props) {
             setCombinedMedia(data.data)
             setInput("")
             setStartUpdate(false)
-            // const indexNumber = combinedMedia.findIndex((item) => item.id == activeInfo.id)
-            // console.log(indexNumber)
-            // let fakeArray = [...combinedMedia]
-            // fakeArray.splice(indexNumber, 1, activeInfo)
-            // console.log(fakeArray)
-            // setCombinedMedia(fakeArray)
-            // setStartUpdate(false)
         }
 
     }
 
+    // Handles change of typing in update content
     function handleChange(e) {
         setInput(e.target.value)
     }
@@ -175,11 +159,11 @@ function UserMediaPage(props) {
     }
     // Remove the selected media
     async function handleRemove() {
-        let payload = {...activeInfo}
+        let payload = { ...activeInfo }
         payload.username = props.user?.username
         console.log("payload sent to delete", payload)
         try {
-            await axios.delete("/content", {data: payload})
+            await axios.delete("/content", { data: payload })
             setDisplayInfo(false)
             const data = await axios.get("/content", {
                 headers: {
@@ -217,6 +201,16 @@ function UserMediaPage(props) {
                     return true
                 }
                 break;
+            case "complete":
+                if (item.completed == true) {
+                    return true
+                }
+                break;
+            case "incomplete":
+                if (item.completed == false) {
+                    return true
+                }
+                break;
             default:
                 break;
         }
@@ -233,6 +227,8 @@ function UserMediaPage(props) {
                     <button onClick={() => setFilterType("tv")}>Television</button>
                     <button onClick={() => setFilterType("game")}>Game</button>
                     <button onClick={() => setFilterType("book")}>Book</button>
+                    <button onClick={() => setFilterType("complete")}>Complete</button>
+                    <button onClick={() => setFilterType("incomplete")}>Incomplete</button>
                 </div>
                 <section className="w-full flex flex-col overflow-scroll">
                     {filteredMedia.map((content, index) => <ContentCard
@@ -273,7 +269,7 @@ function UserMediaPage(props) {
                     <button onClick={handleComplete}>{activeInfo.completed == false ? "Mark as Complete" : "Mark as Incomplete"}</button>
                     <br /><br />
                     <button onClick={handleRemove}>Remove Media</button>
-                    
+
                 </section>
             }
         </div>

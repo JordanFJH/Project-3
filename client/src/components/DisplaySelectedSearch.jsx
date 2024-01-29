@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function DisplaySelectedSearch({ con, user }) {
+function DisplaySelectedSearch({ con, user, library }) {
 
     let lengthType = "";
+    let exists = false;
     let [added, setAdded] = useState(false)
 
     function setLengthType() {
@@ -26,6 +27,18 @@ function DisplaySelectedSearch({ con, user }) {
     }
 
     setLengthType()
+
+    // Check if media already exists in the user's library
+    function checkLibrary() {
+        for (const item of library) {
+            if (con.type == item.type && con.id == item.id) {
+                console.log("Item exists in library")
+                exists = true;
+            }
+        }
+    }
+
+    checkLibrary()
 
     async function addMedia() {
         try {
@@ -74,7 +87,7 @@ function DisplaySelectedSearch({ con, user }) {
                     <a href={con.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>}
                 <h2 className='mb-0 underline'>Overview</h2>
                 <h3 className=''>{con.desc}</h3>
-                {added == true ? <h2>In Library</h2> : <button onClick={addMedia}>Add Media</button>}
+                {exists == true ? <h2>In Your Library</h2> : <button onClick={addMedia}>Add Media</button>}
                 
             </div>
 

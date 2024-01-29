@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import SearchCard from "../components/SearchCard";
 import DisplaySelectedSearch from "../components/DisplaySelectedSearch";
 import { getMovieArray, getBookArray, getTVArray, getGameArray } from "../functions/searchArrays";
@@ -10,6 +11,26 @@ function SearchPage(props) {
     let [input, setInput] = useState("")
     let [selectedSearch, setSelectedSearch] = useState({})
     let [arrayList, setArrayList] = useState([])
+    let [library, setLibrary] = useState([])
+
+    async function getUserLibrary() {
+        try {
+            const data = await axios.get("/content", { // get user collection again
+                headers: {
+                    Username: props.user?.username
+                }
+            })
+            console.log("From the search page ", data.data)
+            setLibrary(data.data)
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
+
+    useEffect(() => {
+        getUserLibrary()
+    }, [])
 
     async function handleSubmit(e) {
         if (!mediaType) { // Exits submit function if search input is empty
@@ -69,7 +90,7 @@ function SearchPage(props) {
                 </section>
                 <section className="border-solid border-black border-2 w-2/5 overflow-scroll">
                     {selectedSearch.name ?
-                    <DisplaySelectedSearch con={selectedSearch} user={props.user}/> : <h3 className="text-center underline">Search for more info</h3>
+                    <DisplaySelectedSearch con={selectedSearch} user={props.user} library={library}/> : <h3 className="text-center underline">Search for more info</h3>
 }
                 </section>
             </div>

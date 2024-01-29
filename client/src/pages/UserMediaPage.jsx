@@ -48,6 +48,23 @@ function UserMediaPage(props) {
         }
 
     }, [])
+    
+//Handles the setting of game length
+    async function addHourToGame() {
+        console.log("Adding hour to total game length")
+        let gameNum = Number(activeInfo.length)
+        gameNum += 1
+        activeInfo.length = gameNum.toString()
+        await axios.put("/content", activeInfo)
+        const data = await axios.get("/content", {
+            headers: {
+                Username: props.user?.username
+            }
+        })
+        //console.log(data.data)
+        setCombinedMedia(data.data)
+        // setStartUpdate(false)
+    }
 
 
     // Update the active media card and check if completed
@@ -252,6 +269,7 @@ function UserMediaPage(props) {
                             <button onClick={updateProgress}>Submit</button>
                         </div>
                     }
+                    {activeInfo.type == "game" ? <button onClick={addHourToGame}>Add Hour to Game Length</button> : ""}
                     <button onClick={handleComplete}>{activeInfo.completed == false ? "Mark as Complete" : "Mark as Incomplete"}</button>
                     <br /><br />
                     <button onClick={handleRemove}>Remove Media</button>

@@ -63,6 +63,10 @@ function SearchPage(props) {
         setInput(e.target.value)
     }
 
+    function settingMediaType(e) {
+        setMediaType(e.target.value)
+    }
+
     return (
         <div className="search-main">
             { selectedSearch.name &&
@@ -74,10 +78,16 @@ function SearchPage(props) {
             />}
             <section className="border-solid border-black border-2 w-2/6 h-3/4">
                 <div className="flex justify-around">
-                    <button onClick={() => setMediaType("Movie")}>Movie</button>
-                    <button onClick={() => setMediaType("TV Show")}>Tv Show</button>
-                    <button onClick={() => setMediaType("Game")}>Game</button>
-                    <button onClick={() => setMediaType("Book")}>Book</button>
+                <form name="filter-content">
+                    <label htmlFor="filter-content">Select Content Type: </label>
+                    <select name="filter-content" id="filter-content" onChange={(e) => settingMediaType(e)}>
+                        <option value="">--Select One--</option>
+                        <option value="Book">Books</option>
+                        <option value="Movie">Movies</option>
+                        <option value="TV Show">TV Shows</option>
+                        <option value="Game">Games</option>
+                    </select>
+                </form>
                 </div>
                 <h3>{mediaType ? `Looking for a ${mediaType}` : "Choose option to search"}</h3>
                 <br /><br />
@@ -86,6 +96,9 @@ function SearchPage(props) {
                 <button onClick={handleSubmit}>Search</button>
                 <br />
                 <button onClick={() => { setArrayList([]); setInput(""); setSelectedSearch({}) }}>Clear Search</button>
+                {arrayList.length > 0 && 
+                    <h2>Search results for {input}</h2>
+                }
             </section>
             <div className="border-solid border-black border-2 flex h-3/4 w-2/3">
                 <section className="border-solid border-black border-2 overflow-y-scroll flex flex-wrap">

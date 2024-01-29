@@ -21,7 +21,8 @@ function SearchCard({ con, setSelectedSearch }) {
 
             case "game":
                 getGameInfo(con, setSelectedSearch)
-
+                break;
+                
             default:
                 console.log("Content type not found")
                 break;
@@ -29,7 +30,7 @@ function SearchCard({ con, setSelectedSearch }) {
     }
 
     return (
-        <div className='border-green-800 border-solid border-2 w-56 h-72' onClick={handleClick}>
+        <div className='border-green-800 border-solid border-2 w-56 h-72 hover:bg-green-900' onClick={handleClick}>
             <div className='w-full'>
                 <img src={con.imgURL} alt="No picture found" className='w-full' />
             </div>

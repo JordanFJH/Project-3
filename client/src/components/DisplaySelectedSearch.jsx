@@ -31,9 +31,11 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch }) {
     // Check if media already exists in the user's library
     function checkLibrary() {
         for (const item of library) {
-            if (con.type == item.type && con.id == item.id) {
+            if (con.name == item.name && con.id == item.id) {
                 console.log("Item exists in library")
                 exists = true;
+            } else {
+                console.log("Item does not exist in library")
             }
         }
     }

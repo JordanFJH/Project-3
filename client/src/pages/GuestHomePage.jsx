@@ -12,7 +12,7 @@ function GuestHomePage(props) {
                     to your account to keep track of.
                 </h3>
                 <div className="w-1/4 h-1/4">
-                    <img src="public\img\pacman_eating.gif" alt="pic of pacman eating" className="w-full"/>
+                    <img src="/img/pacman_eating.gif" alt="pic of pacman eating" className="w-full"/>
                 </div>
             </section>
         </div>

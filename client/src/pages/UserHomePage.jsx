@@ -108,19 +108,27 @@ function UserHomePage(props) {
                 <Link to="/search">
                     <div className="w-full">
                         <h2 className="underline">Search</h2>
-                        <hr className="border-black border-solid border-2"/>
+                        <hr className="border-black border-solid border-2" />
                     </div>
                 </Link>
-                <div className="h-1/4 w-full overflow-y-scroll">
-                    <h5 className="underline">Currently Consuming</h5>
-                    {props.user.username ?
-                        choppedMedia.filter((cont) => cont.consuming == true).map(showConsuming) : "Consuming no media"
+                <div className="h-1/4 w-full overflow-y-scroll text-center">
+                    <h3 className="underline">Currently Consuming</h3>
+                    {choppedMedia.filter((cont) => cont.consuming == true).length > 0 ?
+                        choppedMedia.filter((cont) => cont.consuming == true).map(showConsuming)
+                        :
+                        <div className="text-center">
+                            <h3 className="m-0">**Consuming no media**</h3>
+                            <h4 className="m-0">*Add content then go to library to start consuming*</h4>
+                            <div className="w-full h-1/4">
+                                <img src="public\img\dead_pacman.gif" alt="picture of pac" className="w-full h-1/4"/>
+                            </div>
+                        </div>
                     }
-                    <hr className="border-black border-solid border-2"/>
+                    <hr className="border-black border-solid border-2" />
                 </div>
-                
-                <div>
-                    <h5 className="underline">Media Snapshot</h5>
+
+                <div className="text-center">
+                    <h3 className="underline">Media Snapshot</h3>
                     {props.user.username ? <>
                         <h4>Books: {choppedMedia.filter((con) => con.type == "book").length}</h4>
                         <h4>TV Shows: {choppedMedia.filter((con) => con.type == "tv").length}</h4>
@@ -128,7 +136,7 @@ function UserHomePage(props) {
                         <h4>Games: {choppedMedia.filter((con) => con.type == "game").length}</h4>
                     </> : "Loading"
                     }
-                    <hr className="border-black border-solid border-2"/>
+                    <hr className="border-black border-solid border-2" />
                 </div>
 
                 <div className="flex justify-center">

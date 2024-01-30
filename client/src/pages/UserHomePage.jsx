@@ -98,15 +98,15 @@ function UserHomePage(props) {
             // Get user info
             getUser(token)
         }
-        getTrendingContent(setTrendingContent)
+        // getTrendingContent(setTrendingContent)
     }, [])
 
     choppedMedia = [...combinedMedia]
     return (
         <div className="user-home-main">
-            <section className="h-full flex flex-col justify-around w-2/12 border-black border-2 border-solid bg-purple-300">
+            <section className="h-full flex flex-col w-2/12 border-black border-2 border-solid bg-purple-300 mr-28">
                 <Link to="/search">
-                    <div className="w-full">
+                    <div className="w-full text-center">
                         <h2 className="underline">Search</h2>
                         <hr className="border-black border-solid border-2" />
                     </div>
@@ -120,7 +120,7 @@ function UserHomePage(props) {
                             <h3 className="m-0">**Consuming no media**</h3>
                             <h4 className="m-0">*Add content then go to library to start consuming*</h4>
                             <div className="w-full h-1/4">
-                                <img src="public\img\dead_pacman.gif" alt="picture of pac" className="w-full h-1/4"/>
+                                <img src="public\img\dead_pacman.gif" alt="picture of pac" className="w-full h-1/4" />
                             </div>
                         </div>
                     }
@@ -129,12 +129,24 @@ function UserHomePage(props) {
 
                 <div className="text-center">
                     <h3 className="underline">Media Snapshot</h3>
-                    {props.user.username ? <>
-                        <h4>Books: {choppedMedia.filter((con) => con.type == "book").length}</h4>
-                        <h4>TV Shows: {choppedMedia.filter((con) => con.type == "tv").length}</h4>
-                        <h4>Movies: {choppedMedia.filter((con) => con.type == "movie").length}</h4>
-                        <h4>Games: {choppedMedia.filter((con) => con.type == "game").length}</h4>
-                    </> : "Loading"
+                    {props.user.username ? <div className="grid grid-cols-2 grid-rows-2 gap-2">
+                        <div className="border-black border-solid border-2 rounded">
+                            <h3 className="underline mb-0">Books</h3>
+                            <h3 className="mt-2">{choppedMedia.filter((con) => con.type == "book").length}</h3>
+                        </div>
+                        <div className="border-black border-solid border-2 rounded">
+                            <h3 className="underline mb-0">TV Shows</h3>
+                            <h3 className="mt-2">{choppedMedia.filter((con) => con.type == "tv").length}</h3>
+                        </div>
+                        <div className="border-black border-solid border-2 rounded">
+                            <h3 className="underline mb-0">Movies</h3>
+                            <h3 className="mt-2">{choppedMedia.filter((con) => con.type == "movie").length}</h3>
+                        </div>
+                        <div className="border-black border-solid border-2 rounded">
+                            <h3 className="underline mb-0">Games</h3>
+                            <h3 className="mt-2">{choppedMedia.filter((con) => con.type == "game").length}</h3>
+                        </div>
+                    </div> : "Loading"
                     }
                     <hr className="border-black border-solid border-2" />
                 </div>

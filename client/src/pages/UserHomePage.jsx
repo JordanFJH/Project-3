@@ -107,7 +107,7 @@ function UserHomePage(props) {
             <section className="h-full flex flex-col w-2/12 border-black border-2 border-solid bg-purple-300 mr-28">
                 <Link to="/search">
                     <div className="w-full text-center">
-                        <h2 className="underline">Search</h2>
+                        <h2 className="underline">Search Content</h2>
                         <hr className="border-black border-solid border-2" />
                     </div>
                 </Link>
@@ -120,7 +120,7 @@ function UserHomePage(props) {
                             <h3 className="m-0">**Consuming no media**</h3>
                             <h4 className="m-0">*Add content then go to library to start consuming*</h4>
                             <div className="w-full h-1/4">
-                                <img src="public\img\dead_pacman.gif" alt="picture of pac" className="w-full h-1/4" />
+                                <img src="public\img\dead_pacman.gif" alt="picture of pac" className="w-1/2 h-1/4"/>
                             </div>
                         </div>
                     }
@@ -160,7 +160,7 @@ function UserHomePage(props) {
                 </div>
 
             </section>
-            <section className="h-full w-5/12 border-black border-2 border-solid flex flex-col items-center bg-purple-300">
+            <section className="h-full w-5/12 border-black border-2 border-solid flex flex-col items-center bg-purple-300 mr-10">
                 <h2 className="underline">What's Trending</h2>
                 <h5 className="m-0">(Click for more info)</h5>
                 <div className="border-black border-2 border-solid h-full w-full overflow-y-scroll">
@@ -173,8 +173,7 @@ function UserHomePage(props) {
                 </div>
             </section>
             {showTrend &&
-                <section className="flex items-center w-3/12 h-full flex flex-col overflow-y-scroll bg-purple-300">
-                    <button onClick={() => setShowTrend(false)} className="">X</button>
+                <section className="flex items-center w-3/12 h-full flex flex-col overflow-y-scroll bg-purple-300 border-black border-solid border-2">
                     <div className="w-full">
                         <img src={specificTrend.imgURL} alt="Poster Picture" className="w-full h-full" />
                     </div>
@@ -184,7 +183,9 @@ function UserHomePage(props) {
                     <a href={specificTrend.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>
                     <h3 className="underline mb-0">Overview</h3>
                     <h3>{specificTrend.desc}</h3>
-                    {exists == true ? <h2>In Your Library</h2> : <button onClick={addMedia}>Add Media</button>}
+                    <button onClick={() => setShowTrend(false)} className="">Close</button>
+                    <br /><br />
+                    {exists == true ? <h2>Ready to Consume in Your Library</h2> : <button onClick={addMedia}>Add Content to Library</button>}
                 </section>
             }
         </div>

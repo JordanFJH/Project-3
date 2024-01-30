@@ -139,7 +139,7 @@ function UserHomePage(props) {
             <section className="h-full w-5/12 border-black border-2 border-solid flex flex-col items-center">
                 <h2 className="underline">What's Trending</h2>
                 <h5 className="m-0">(Click for more info)</h5>
-                <div className="border-black border-2 border-solid h-full w-full overflow-scroll">
+                <div className="border-black border-2 border-solid h-full w-full overflow-y-scroll">
                     {trendingContent.map((con, index) => <TrendingCard
                         con={con}
                         key={index}

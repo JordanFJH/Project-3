@@ -77,7 +77,7 @@ function SearchPage(props) {
                 setSelectedSearch={setSelectedSearch}
             />}
             <section className="border-solid border-black border-2 w-2/6 h-3/4">
-                <div className="flex justify-around">
+                <div className="text-center">
                 <form name="filter-content">
                     <label htmlFor="filter-content">Select Content Type: </label>
                     <select name="filter-content" id="filter-content" onChange={(e) => settingMediaType(e)}>
@@ -97,11 +97,11 @@ function SearchPage(props) {
                 <br />
                 <button onClick={() => { setArrayList([]); setInput(""); setSelectedSearch({}) }}>Clear Search</button>
                 {arrayList.length > 0 && 
-                    <h2>Search results for {input}</h2>
+                    <h2>{arrayList.length} search results for {input}</h2>
                 }
             </section>
             <div className="border-solid border-black border-2 flex h-3/4 w-2/3">
-                <section className="border-solid border-black border-2 overflow-y-scroll flex flex-wrap">
+                <section className="border-solid border-black border-2 overflow-y-scroll flex flex-wrap bg-yellow-200 justify-around">
                     {arrayList.map((con, index) => <SearchCard
                         con={con}
                         key={index}

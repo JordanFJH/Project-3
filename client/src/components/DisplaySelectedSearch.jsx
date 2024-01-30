@@ -78,7 +78,7 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch }) {
     }
 
     return (
-        <div className="w-3/4 h-1/2 absolute bg-green-500 overflow-y-scroll flex flex-col border-solid border-black border-4 rounded">
+        <div className="w-3/6 h-1/2 absolute bg-green-500 overflow-y-scroll flex flex-col border-solid border-black border-4 rounded">
             <button className="absolute right-0" onClick={() => {setSelectedSearch({})}}>X</button>
             <div className="flex p-3">
                 <div className='w-1/2'>

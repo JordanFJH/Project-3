@@ -104,18 +104,21 @@ function UserHomePage(props) {
     choppedMedia = [...combinedMedia]
     return (
         <div className="user-home-main">
-            <section className="h-full flex flex-col justify-around w-2/12 border-black border-2 border-solid">
+            <section className="h-full flex flex-col justify-around w-2/12 border-black border-2 border-solid bg-purple-300">
                 <Link to="/search">
                     <div className="w-full">
-                        <h2>Search</h2>
+                        <h2 className="underline">Search</h2>
+                        <hr className="border-black border-solid border-2"/>
                     </div>
                 </Link>
-                <div className="h-1/4 w-full border-black border-2 border-solid">
+                <div className="h-1/4 w-full overflow-y-scroll">
                     <h5 className="underline">Currently Consuming</h5>
                     {props.user.username ?
-                        choppedMedia.filter((cont) => cont.consuming == true).map(showConsuming) : "Loading"
+                        choppedMedia.filter((cont) => cont.consuming == true).map(showConsuming) : "Consuming no media"
                     }
+                    <hr className="border-black border-solid border-2"/>
                 </div>
+                
                 <div>
                     <h5 className="underline">Media Snapshot</h5>
                     {props.user.username ? <>
@@ -125,6 +128,7 @@ function UserHomePage(props) {
                         <h4>Games: {choppedMedia.filter((con) => con.type == "game").length}</h4>
                     </> : "Loading"
                     }
+                    <hr className="border-black border-solid border-2"/>
                 </div>
 
                 <div className="flex justify-center">
@@ -136,7 +140,7 @@ function UserHomePage(props) {
                 </div>
 
             </section>
-            <section className="h-full w-5/12 border-black border-2 border-solid flex flex-col items-center">
+            <section className="h-full w-5/12 border-black border-2 border-solid flex flex-col items-center bg-purple-300">
                 <h2 className="underline">What's Trending</h2>
                 <h5 className="m-0">(Click for more info)</h5>
                 <div className="border-black border-2 border-solid h-full w-full overflow-y-scroll">
@@ -149,7 +153,7 @@ function UserHomePage(props) {
                 </div>
             </section>
             {showTrend &&
-                <section className="flex items-center w-3/12 h-full flex flex-col overflow-scroll">
+                <section className="flex items-center w-3/12 h-full flex flex-col overflow-y-scroll bg-purple-300">
                     <button onClick={() => setShowTrend(false)} className="">X</button>
                     <div className="w-full">
                         <img src={specificTrend.imgURL} alt="Poster Picture" className="w-full h-full" />

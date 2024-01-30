@@ -7,6 +7,7 @@ import { getMovieArray, getBookArray, getTVArray, getGameArray } from "../functi
 
 function SearchPage(props) {
 
+    let [searched, setSearched] = useState("")
     let [mediaType, setMediaType] = useState("")
     let [input, setInput] = useState("")
     let [selectedSearch, setSelectedSearch] = useState({})
@@ -37,6 +38,7 @@ function SearchPage(props) {
             return
         }
         console.log("handling Submit")
+        setSearched(input)
         switch (mediaType) {
             case "Movie":
                 getMovieArray(input, setArrayList)
@@ -89,15 +91,28 @@ function SearchPage(props) {
                         </select>
                     </form>
                 </div>
-                <h3>{mediaType ? `Looking for a ${mediaType}` : "Choose option to search"}</h3>
-                <br /><br />
-                <label htmlFor="search">Search by Name: </label>
-                <input type="text" value={input} onChange={handleChange} />
-                <button onClick={handleSubmit}>Search</button>
+                <div className="text-center">
+                    {mediaType ? <div>
+                        <h2 className="underline">Searching For:</h2>
+                        <h2>{mediaType}</h2>
+                    </div> : <h3>Choose Option to search</h3>}
+                </div>
                 <br />
-                <button onClick={() => { setArrayList([]); setInput(""); setSelectedSearch({}) }}>Clear Search</button>
+                <div className="text-center">
+                    <h2>Enter Name of Content:</h2>
+                    <input type="text" value={input} onChange={handleChange} />
+                    <br /><br />
+                    <div className="flex justify-around">
+                        <button onClick={() => { setArrayList([]); setInput(""); setSelectedSearch({}) }}>Clear Search</button>
+                        <button onClick={handleSubmit}>Search</button>
+                    </div>
+                </div>
+                <br />
                 {arrayList.length > 0 &&
-                    <h2>{arrayList.length} search results for {input}</h2>
+                    <div className="text-center">
+                        <h2 className="underline">Search results for {searched} {mediaType}</h2>
+                        <h2>{arrayList.length}</h2>
+                    </div>
                 }
             </section>
             <div className="flex h-3/4 w-2/3">
@@ -113,7 +128,7 @@ function SearchPage(props) {
                         <h1>There is no data to consume!</h1>
                         <h1>Please Search for Content to Consume on the left</h1>
                         <div className="w-full">
-                            <img src="public\img\dead_pacman.gif" alt="Pic of pacman" className="w-full"/>
+                            <img src="public\img\dead_pacman.gif" alt="Pic of pacman" className="w-full" />
                         </div>
                     </div>
                 }

@@ -98,7 +98,7 @@ function UserHomePage(props) {
             // Get user info
             getUser(token)
         }
-        // getTrendingContent(setTrendingContent)
+        getTrendingContent(setTrendingContent)
     }, [])
 
     choppedMedia = [...combinedMedia]

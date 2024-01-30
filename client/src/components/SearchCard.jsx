@@ -5,13 +5,28 @@ import { getGameInfo, getBookInfo, getMovieInfo, getTvInfo } from "../functions/
 
 function SearchCard({ con, setSelectedSearch }) {
 
+    let [imgLink, setImgLink] = useState("")
+
+    function handleImgError() {
+        if (con.imgURL) {
+            setImgLink(con.imgURL)
+        } else {
+            setImgLink("public/img/no_picture.jpg")
+        }
+    }
+
 
     // Handles if image is not found on content
     function handleError(e) {
+        console.log("Image error")
         console.log(e)
         e.target.onerror = null;
         e.target.src = "public/img/no_picture.jpg"
     }
+
+    useEffect(() => {
+        handleImgError()
+    }, [])
 
     async function handleClick() {
         switch (con.type) {
@@ -40,7 +55,7 @@ function SearchCard({ con, setSelectedSearch }) {
     return (
         <div className='border-green-800 border-solid border-2 w-3/12 h-72 hover:bg-green-900 m-4 bg-white' onClick={handleClick}>
             <div className='w-full h-1/2'>
-                <img src={con.imgURL} alt="No picture found" className='w-full h-full' onError={(e) => handleError(e)} />
+                <img src={imgLink} alt="No picture found" className='w-full h-full' onError={(e) => handleError(e)} />
             </div>
             <div className="text-center">
                 <h2>{con.name}</h2>

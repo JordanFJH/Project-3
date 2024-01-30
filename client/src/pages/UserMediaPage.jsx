@@ -249,19 +249,6 @@ function UserMediaPage(props) {
                 </div>
             </section>
             <section className="border-solid border-black border-2 w-3/5 flex items-center bg-purple-300 h-3/4">
-                {/* <h2 className="underline">Your Current Media</h2>
-                <form name="filter-content">
-                    <label htmlFor="filter-content">Select Filter Type: </label>
-                    <select name="filter-content" id="filter-content" onChange={(e) => filterDisplay(e)}>
-                        <option value="all">All</option>
-                        <option value="book">Books</option>
-                        <option value="movie">Movies</option>
-                        <option value="tv">TV Shows</option>
-                        <option value="game">Games</option>
-                        <option value="complete">Complete</option>
-                        <option value="incomplete">Incomplete</option>
-                    </select>
-                </form> */}
                 <section className="w-full h-full flex flex-wrap overflow-y-scroll justify-around">
                     {filteredMedia.map((content, index) => <ContentCard
                         content={content}
@@ -274,34 +261,46 @@ function UserMediaPage(props) {
                 </section>
             </section>
             {displayInfo &&
-                <section className="border-solid border-black border-2 w-2/5 overflow-y-scroll bg-purple-300">
-                    <div className="w-full">
-                        <img src={activeInfo.imgURL} alt="Picture of content" className="w-full" />
-                    </div>
-                    <h3>{activeInfo.name}</h3>
-                    <h4>{activeInfo.type}</h4>
-                    <a href={activeInfo.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>
-                    <h3 className="underline">Overview</h3>
-                    <h4>{activeInfo.desc}</h4>
-                    <h4>Your progress: {activeInfo.progress} {activeInfo.lengthType}</h4>
-                    <h4>You are {((activeInfo.progress / activeInfo.length) * 100).toFixed(2)} % complete</h4>
-                    <h4>Total Length: {activeInfo.length} {activeInfo.lengthType}</h4>
-                    <button onClick={() => setDisplayInfo(false)}>Close</button>
-                    <button onClick={handleConsuming}>{activeInfo.consuming ? "Stop Consuming" : "Start Consuming"}</button>
-                    <br /><br />
-                    <button onClick={() => setStartUpdate(true)}>Update Progress</button>
-                    <br /><br />
-                    {startUpdate &&
-                        <div>
-                            <h3>How many {activeInfo.lengthType} did you complete</h3>
-                            <input type="number" value={input} onChange={handleChange} />
-                            <button onClick={updateProgress}>Submit</button>
+                <section className="border-solid border-black border-2 w-3/5 h-3/4 bg-purple-300 absolute">
+                    <div className="flex h-1/2">
+                        <div className="h-full w-1/2">
+                            <div className="w-full h-full">
+                                <img src={activeInfo.imgURL} alt="Picture of content" className="w-full h-full" />
+                            </div>
                         </div>
-                    }
-                    {activeInfo.type == "game" ? <button onClick={addHourToGame}>Add Hour to Game Length</button> : ""}
-                    <button onClick={handleComplete}>{activeInfo.completed == false ? "Mark as Complete" : "Mark as Incomplete"}</button>
-                    <br /><br />
-                    <button onClick={handleRemove}>Remove Media</button>
+                        <div className="h-full w-1/2 text-center overflow-y-scroll">
+                            <h1>{activeInfo.name}</h1>
+                            {activeInfo.author &&
+                                <h2>{activeInfo.author}</h2>
+                            }
+                            <h3>{activeInfo.type}</h3>
+                            <a href={activeInfo.infoLink} target="_blank" rel="noopener noreferrer">Click for more info</a>
+                            <h3>Your progress: {activeInfo.progress} {activeInfo.lengthType}</h3>
+                            <h3>You are {((activeInfo.progress / activeInfo.length) * 100).toFixed(2)} % complete</h3>
+                            <h3>Total Length: {activeInfo.length} {activeInfo.lengthType}</h3>
+                            <h3 className="underline">Overview</h3>
+                            <h4>{activeInfo.desc}</h4>
+                        </div>
+                    </div>
+                    <hr className="border-solid border-2 border-black" />
+                    <div className="flex flex-col">
+                        <button onClick={() => setDisplayInfo(false)}>Close</button>
+                        <button onClick={handleConsuming}>{activeInfo.consuming ? "Stop Consuming" : "Start Consuming"}</button>
+                        <br /><br />
+                        <button onClick={() => setStartUpdate(true)}>Update Progress</button>
+                        <br /><br />
+                        {startUpdate &&
+                            <div>
+                                <h3>How many {activeInfo.lengthType} did you complete</h3>
+                                <input type="number" value={input} onChange={handleChange} />
+                                <button onClick={updateProgress}>Submit</button>
+                            </div>
+                        }
+                        {activeInfo.type == "game" ? <button onClick={addHourToGame}>Add Hour to Game Length</button> : ""}
+                        <button onClick={handleComplete}>{activeInfo.completed == false ? "Mark as Complete" : "Mark as Incomplete"}</button>
+                        <br /><br />
+                        <button onClick={handleRemove}>Remove Media</button>
+                    </div>
 
                 </section>
             }

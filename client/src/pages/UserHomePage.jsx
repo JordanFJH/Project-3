@@ -120,7 +120,7 @@ function UserHomePage(props) {
                             <h3 className="m-0">**Consuming no media**</h3>
                             <h4 className="m-0">*Add content then go to library to start consuming*</h4>
                             <div className="w-full h-1/4">
-                                <img src="public\img\dead_pacman.gif" alt="picture of pac" className="w-1/2 h-1/4"/>
+                                <img src="/img/dead_pacman.gif" alt="picture of pac" className="w-1/2 h-1/4"/>
                             </div>
                         </div>
                     }

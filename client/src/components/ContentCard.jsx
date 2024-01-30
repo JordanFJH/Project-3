@@ -35,12 +35,12 @@ function ContentCard({ content, setActiveInfo, setDisplayInfo, setStartUpdate })
 
     return (
         <div className="card-display" onClick={setItUp}>
-            <div className="w-full text-center">
-                <img src={content.imgURL} alt="Picture Not Found" className="w-2/4"/>
+            <div className="w-full h-1/2">
+                <img src={content.imgURL} alt="Picture Not Found" className="w-full h-full"/>
             </div>
             <h3 className="mb-0">{content.name}</h3>
-            <h4>{content.type}</h4>
-            <h4>{content.completed ? "Completed" : "Incomplete"}</h4>
+            <h4 className="mt-0">{content.type}</h4>
+            <h2>{((content.progress / content.length) * 100).toFixed(2)} % complete</h2>
         </div>
     );
 }

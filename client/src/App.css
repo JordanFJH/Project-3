@@ -42,7 +42,9 @@
     border: 2px solid black;
     height: 90%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    background-color: darkmagenta;
 }
 
 .search-main {
@@ -61,7 +63,10 @@ a {
 
 .card-display {
     border: 2px solid black;
-    width: 100%;
+    border-radius: 10px;
+    margin: 10px;
+    width: 30%;
+    height: 45%;
     display: flex;
     flex-direction: column;
     align-items: center;

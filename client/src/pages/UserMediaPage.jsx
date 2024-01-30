@@ -211,6 +211,11 @@ function UserMediaPage(props) {
                     return true
                 }
                 break;
+            case "consuming":
+                if (item.consuming == true) {
+                    return true
+                }
+                break;
             default:
                 break;
         }
@@ -224,8 +229,27 @@ function UserMediaPage(props) {
     // console.log("UserMedia Page:" + state)
     return (
         <div className="user-media-main">
-            <section className="border-solid border-black border-2 w-2/5 flex flex-col items-center">
-                <h2 className="underline">Your Current Media</h2>
+            <section className="border-black border-solid border-2 bg-purple-300 w-1/6 mr-20 h-3/4 text-center">
+                <div className="h-full">
+                    <h2>Show Me My</h2>
+                    <hr className="border-black border-2 border-solid" />
+                    {/* div for the buttons */}
+                    <div className="h-3/5 flex flex-col justify-around items-center">
+                        <button onClick={() => setFilterType("all")}>All</button>
+                        <button onClick={() => setFilterType("book")}>Books</button>
+                        <button onClick={() => setFilterType("movie")}>Movies</button>
+                        <button onClick={() => setFilterType("tv")}>TV Shows</button>
+                        <button onClick={() => setFilterType("game")}>Games</button>
+                        <button onClick={() => setFilterType("complete")}>Completed</button>
+                        <button onClick={() => setFilterType("incomplete")}>Not Completed</button>
+                        <button onClick={() => setFilterType("consuming")}>Consuming</button>
+                    </div>
+                    <h2 className="underline">Displaying</h2>
+                    <h2>{filterType}</h2>
+                </div>
+            </section>
+            <section className="border-solid border-black border-2 w-3/5 flex items-center bg-purple-300 h-3/4">
+                {/* <h2 className="underline">Your Current Media</h2>
                 <form name="filter-content">
                     <label htmlFor="filter-content">Select Filter Type: </label>
                     <select name="filter-content" id="filter-content" onChange={(e) => filterDisplay(e)}>
@@ -237,8 +261,8 @@ function UserMediaPage(props) {
                         <option value="complete">Complete</option>
                         <option value="incomplete">Incomplete</option>
                     </select>
-                </form>
-                <section className="w-full flex flex-col overflow-scroll">
+                </form> */}
+                <section className="w-full h-full flex flex-wrap overflow-y-scroll justify-around">
                     {filteredMedia.map((content, index) => <ContentCard
                         content={content}
                         key={index}
@@ -250,7 +274,7 @@ function UserMediaPage(props) {
                 </section>
             </section>
             {displayInfo &&
-                <section className="border-solid border-black border-2 w-2/5 overflow-scroll">
+                <section className="border-solid border-black border-2 w-2/5 overflow-y-scroll bg-purple-300">
                     <div className="w-full">
                         <img src={activeInfo.imgURL} alt="Picture of content" className="w-full" />
                     </div>
@@ -262,6 +286,7 @@ function UserMediaPage(props) {
                     <h4>Your progress: {activeInfo.progress} {activeInfo.lengthType}</h4>
                     <h4>You are {((activeInfo.progress / activeInfo.length) * 100).toFixed(2)} % complete</h4>
                     <h4>Total Length: {activeInfo.length} {activeInfo.lengthType}</h4>
+                    <button onClick={() => setDisplayInfo(false)}>Close</button>
                     <button onClick={handleConsuming}>{activeInfo.consuming ? "Stop Consuming" : "Start Consuming"}</button>
                     <br /><br />
                     <button onClick={() => setStartUpdate(true)}>Update Progress</button>

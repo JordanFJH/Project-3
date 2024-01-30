@@ -6,11 +6,17 @@
     height: 100vh;
 }
 
+
+#root, body {
+    margin: 0;
+}
+
 .guest-home-main {
     border: 2px solid black;
-    height: 80%;
+    height: 90%;
     display: flex;
     justify-content: center;
+    background-color: darkmagenta;
 }
 
 .login-main {

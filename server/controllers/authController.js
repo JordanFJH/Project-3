@@ -43,6 +43,7 @@ async function createUser(req, res) {
 // Logging the user in
 async function loginUser(req, res) {
     try {
+        console.log("In the login")
         //Check if user exists
         const foundUser = await User.findOne({ username: req.body.username })
         if (!foundUser) {

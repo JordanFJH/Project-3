@@ -6,7 +6,7 @@ const mongoConfig = require("./config");
 mongoConfig()
 
 const app = express()
-const PORT = 8080;
+const PORT = 5000;
 
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes")

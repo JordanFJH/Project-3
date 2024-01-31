@@ -5,9 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/auth': 'https://mpt-backend.onrender.com',
-      '/api': 'https://mpt-backend.onrender.com',
-      '/content': 'https://mpt-backend.onrender.com'
+      '/auth': import.meta.env.VITE_SERVER,
+      '/api': import.meta.env.VITE_SERVER,
+      '/content': import.meta.env.VITE_SERVER
     }
   },
   plugins: [react()],

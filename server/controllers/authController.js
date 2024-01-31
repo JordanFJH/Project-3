@@ -49,14 +49,16 @@ async function loginUser(req, res) {
         if (!foundUser) {
             return res.status(400).json({ message: "Could not find user" })
         }
+        console.log("found the user")
         // Check if password matches
         const validPassword = await bcrypt.compare(req.body.password, foundUser.password)
         if (!validPassword) {
             return res.status(400).json({ error: "Invalid Credentials" })
         }
+        console.log("password is okay")
 
         const token = generateToken(foundUser)
-
+        console.log("Token generated")
         res.status(200).json({ token })
     } catch (error) {
         console.log(error.message)

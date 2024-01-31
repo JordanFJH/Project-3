@@ -5,10 +5,17 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/auth': 'http://localhost:8080',
-      '/api': 'http://localhost:8080',
-      '/content': 'http://localhost:8080'
+      '/auth': 'https://mpt-backend.onrender.com',
+      '/api': 'https://mpt-backend.onrender.com',
+      '/content': 'https://mpt-backend.onrender.com'
     }
   },
   plugins: [react()],
 })
+
+
+// url of backend on render
+// https://mpt-backend.onrender.com
+
+//URL for testing
+// http://localhost:8080

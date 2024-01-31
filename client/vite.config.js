@@ -5,9 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/auth': import.meta.env.VITE_SERVER,
-      '/api': import.meta.env.VITE_SERVER,
-      '/content': import.meta.env.VITE_SERVER
+      '/auth': "http://localhost:8080",
+      '/api': "http://localhost:8080",
+      '/content': "http://localhost:8080"
     }
   },
   plugins: [react()],

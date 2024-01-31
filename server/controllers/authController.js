@@ -46,6 +46,7 @@ async function loginUser(req, res) {
         console.log("In the login")
         //Check if user exists
         const foundUser = await User.findOne({ username: req.body.username })
+        console.log("After find user in login")
         if (!foundUser) {
             return res.status(400).json({ message: "Could not find user" })
         }

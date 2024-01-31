@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import baseURL from "../../baseURL";
 
 
 function SignInPage({ setUser }) {
@@ -24,7 +25,7 @@ function SignInPage({ setUser }) {
     async function handleLoginSubmit(e) {
         e.preventDefault()
         try {
-            const response = await axios.post("/auth/login", loginForm)
+            const response = await axios.post(baseURL + "/auth/login", loginForm)
             const token = response.data.token
 
             console.log(token)

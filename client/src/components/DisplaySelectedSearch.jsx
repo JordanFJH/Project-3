@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function DisplaySelectedSearch({ con, user, library, setSelectedSearch }) {
+function DisplaySelectedSearch({ con, user, library, setSelectedSearch, setLibrary }) {
 
     let lengthType = "";
     let exists = false;
@@ -29,18 +29,36 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch }) {
     setLengthType()
 
     // Check if media already exists in the user's library
-    function checkLibrary() {
-        for (const item of library) {
+    async function checkLibrary() {
+
+        let checkingLibrary = []
+        try {
+            const response = await axios.get("/content", {
+                headers: {
+                    Username: user.username
+                }
+            })
+
+            let data = response.data
+            checkingLibrary = data
+        } catch (error) {
+            console.log(error)
+        }
+
+        for (const item of checkingLibrary) {
             if (con.name == item.name && con.id == item.id) {
                 console.log("Item exists in library")
-                exists = true;
+                setAdded(true);
             } else {
                 console.log("Item does not exist in library")
             }
         }
     }
 
-    checkLibrary()
+    useEffect(() => {
+        checkLibrary()
+    }, [])
+
 
     //Function for adding media to library
     async function addMedia() {
@@ -52,7 +70,8 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch }) {
                 desc: con.desc,
                 infoLink: con.infoLink,
                 imgURL: con.imgURL,
-                id: con.id
+                id: con.id,
+                author: con.author
             }
             await axios.post("/content", singleObj, {
                 headers: {
@@ -61,16 +80,15 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch }) {
             })
             setAdded(true)
 
-
             //Functionality for getting the user data, don't think I need this for here
             // May reenable for comparing if already in library
-            // const data = await axios.get("/content", { // get user collection again
-            //     headers: {
-            //         Username: props.user?.username
-            //     }
-            // })
+            const data = await axios.get("/content", { // get user collection again
+                headers: {
+                    Username: props.user?.username
+                }
+            })
             // console.log("From the addmedia ", data.data)
-            // setCombinedMedia(data.data)
+            setLibrary(data.data)
         } catch (error) {
             console.log(error)
         }
@@ -79,7 +97,7 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch }) {
 
     return (
         <div className="w-3/6 h-1/2 absolute bg-green-500 overflow-y-scroll flex flex-col border-solid border-black border-4 rounded">
-            <button className="absolute right-0" onClick={() => {setSelectedSearch({})}}>X</button>
+            <button className="absolute right-0" onClick={() => { setSelectedSearch({}) }}>X</button>
             <div className="flex p-3">
                 <div className='w-1/2'>
                     <img src={con.imgURL} alt="Picture Not Found" className='w-full' />
@@ -93,10 +111,10 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch }) {
                 </div>
             </div>
             <div className="text-center">
-                <hr className="border-black border-solid border-2"/>
+                <hr className="border-black border-solid border-2" />
                 <h2 className='mb-0 underline'>Overview</h2>
                 <h3 className=''>{con.desc}</h3>
-                {exists == true ? <h2>In Your Library</h2> : <button onClick={addMedia}>Add Media</button>}
+                {added == true ? <h2>In Your Library</h2> : <button onClick={addMedia}>Add Media</button>}
             </div>
 
 

@@ -9,6 +9,7 @@ const contentSchema = new Schema({
     desc: { type: String },
     infoLink: { type: String },
     imgURL: { type: String },
+    author: { type: String, default: null },
     progress: { type: String, default: "0" },
     consuming: { type: Boolean, default: false },
     completed: { type: Boolean, default: false },

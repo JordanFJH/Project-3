@@ -14,11 +14,18 @@ function SearchPage(props) {
     let [arrayList, setArrayList] = useState([])
     let [library, setLibrary] = useState([])
 
-    async function getUserLibrary() {
+    async function getUser(token) {
         try {
+            const response = await axios.get("/api/users", {
+                headers: {
+                    Authorization: token
+                }
+            })
+            props.setUser(response.data)
+            console.log("Checking the username", response.data?.username)
             const data = await axios.get("/content", { // get user collection again
                 headers: {
-                    Username: props.user?.username
+                    Username: response.data?.username
                 }
             })
             console.log("From the search page ", data.data)
@@ -26,11 +33,31 @@ function SearchPage(props) {
         } catch (error) {
             console.log(error)
         }
+        // try {
+        //     const data = await axios.get("/content", { // get user collection again
+        //         headers: {
+        //             Username: props.user.username
+        //         }
+        //     })
+        //     console.log("The data", data)
+        //     console.log("From the search page ", data.data)
+        //     setLibrary(data.data)
+        // } catch (error) {
+        //     console.log(error)
+        // }
+        
 
     }
 
     useEffect(() => {
-        getUserLibrary()
+        console.log("In the UseEffect")
+        const token = localStorage.getItem("token")
+        if (token) {
+            // Get user info
+            getUser(token)
+        } else {
+            //setIsLoading(false)
+        }
     }, [])
 
     async function handleSubmit(e) {
@@ -76,6 +103,7 @@ function SearchPage(props) {
                     con={selectedSearch}
                     user={props.user}
                     library={library}
+                    setLibrary={setLibrary}
                     setSelectedSearch={setSelectedSearch}
                 />}
             <section className="border-solid border-black border-4 w-3/12 h-3/4 mr-6 rounded bg-purple-300">
@@ -128,7 +156,7 @@ function SearchPage(props) {
                         <h1>There is no data to consume!</h1>
                         <h1>Please Search for Content to Consume on the left</h1>
                         <div className="w-full">
-                            <img src="public\img\dead_pacman.gif" alt="Pic of pacman" className="w-full" />
+                            <img src="/img/dead_pacman.gif" alt="Pic of pacman" className="w-full" />
                         </div>
                     </div>
                 }

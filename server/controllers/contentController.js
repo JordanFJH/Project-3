@@ -7,6 +7,7 @@ module.exports.getInfo = async (req, res) => {
     console.log("trying to get the user's content info")
     try {
         const username = req.header("Username")
+        console.log("Username sent", username)
         const foundUser = await User.findOne({ username: username }).populate("content")
         console.log("Found user in getinfo")
         res.status(200).json(foundUser?.content)
@@ -14,9 +15,6 @@ module.exports.getInfo = async (req, res) => {
         console.log(error.message)
         res.status(400).json({ message: error.message })
     }
-
-
-
 }
 
 // Adding Content

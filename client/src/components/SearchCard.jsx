@@ -21,14 +21,14 @@ function SearchCard({ con, setSelectedSearch }) {
         console.log("Image error")
         console.log(e)
         e.target.onerror = null;
-        e.target.src = "public/img/no_picture.jpg"
+        e.target.src = "/img/no_picture.jpg"
     }
 
     useEffect(() => {
         handleImgError()
     }, [])
 
-    async function handleClick() {
+    function handleClick() {
         switch (con.type) {
             case "movie":
                 getMovieInfo(con, setSelectedSearch)

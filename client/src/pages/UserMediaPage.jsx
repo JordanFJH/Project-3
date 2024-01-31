@@ -290,7 +290,7 @@ function UserMediaPage(props) {
                         <button onClick={() => setStartUpdate(true)}>Update Progress</button>
                         <br /><br />
                         {startUpdate &&
-                            <div>
+                            <div className="text-center mt-0">
                                 <h3>How many {activeInfo.lengthType} did you complete</h3>
                                 <input type="number" value={input} onChange={handleChange} />
                                 <button onClick={updateProgress}>Submit</button>

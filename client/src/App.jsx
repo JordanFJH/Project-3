@@ -7,6 +7,7 @@ import SearchPage from './pages/SearchPage'
 import UserMediaPage from './pages/UserMediaPage'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import baseURL from '../baseURL'
 import './App.css'
 import { useState, useEffect } from 'react'
 
@@ -16,7 +17,7 @@ function App() {
 
   async function getUser(token) {
     try {
-      const response = await axios.get("/api/users", {
+      const response = await axios.get(baseURL + "/api/users", {
         headers: {
           Authorization: token
         }

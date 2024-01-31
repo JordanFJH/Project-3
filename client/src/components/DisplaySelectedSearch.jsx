@@ -1,4 +1,5 @@
 import axios from "axios";
+import baseURL from "../../baseURL";
 import { useState, useEffect } from "react";
 
 function DisplaySelectedSearch({ con, user, library, setSelectedSearch, setLibrary }) {
@@ -33,7 +34,7 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch, setLibra
 
         let checkingLibrary = []
         try {
-            const response = await axios.get("/content", {
+            const response = await axios.get(baseURL + "/content", {
                 headers: {
                     Username: user.username
                 }
@@ -73,7 +74,7 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch, setLibra
                 id: con.id,
                 author: con.author
             }
-            await axios.post("/content", singleObj, {
+            await axios.post(baseURL + "/content", singleObj, {
                 headers: {
                     Username: user.username
                 }
@@ -82,7 +83,7 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch, setLibra
 
             //Functionality for getting the user data, don't think I need this for here
             // May reenable for comparing if already in library
-            const data = await axios.get("/content", { // get user collection again
+            const data = await axios.get(baseURL + "/content", { // get user collection again
                 headers: {
                     Username: props.user?.username
                 }

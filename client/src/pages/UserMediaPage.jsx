@@ -1,5 +1,6 @@
 import allContent from "../../dummyData";
 import axios from "axios";
+import baseURL from "../../baseURL";
 import ContentCard from "../components/ContentCard";
 import { useState, useEffect } from "react";
 import { checkProgress } from "../functions/userMediaFunctions";
@@ -18,7 +19,7 @@ function UserMediaPage(props) {
     async function getUser(token) {
         try {
             // Setting the user
-            const response = await axios.get("/api/users", {
+            const response = await axios.get(baseURL + "/api/users", {
                 headers: {
                     Authorization: token
                 }
@@ -26,7 +27,7 @@ function UserMediaPage(props) {
             console.log("response.data ", response.data)
             props.setUser(response.data)
             // Setting the user's data
-            const data = await axios.get("/content", {
+            const data = await axios.get(baseURL + "/content", {
                 headers: {
                     Username: props.user?.username
                 }
@@ -55,8 +56,8 @@ function UserMediaPage(props) {
         let gameNum = Number(activeInfo.length)
         gameNum += 1
         activeInfo.length = gameNum.toString()
-        await axios.put("/content", activeInfo)
-        const data = await axios.get("/content", {
+        await axios.put(baseURL + "/content", activeInfo)
+        const data = await axios.get(baseURL + "/content", {
             headers: {
                 Username: props.user?.username
             }
@@ -73,10 +74,10 @@ function UserMediaPage(props) {
             }
             //Updates info on backend
             activeInfo.progress = input
-            await axios.put("/content", activeInfo)
+            await axios.put(baseURL + "/content", activeInfo)
 
             //Gets all info again with updated content
-            const data = await axios.get("/content", {
+            const data = await axios.get(baseURL + "/content", {
                 headers: {
                     Username: props.user?.username
                 }
@@ -96,8 +97,8 @@ function UserMediaPage(props) {
             activeInfo.progress = "Complete" //Setting progress to the string "Completed"
             activeInfo.completed = true // setting completed to true
             activeInfo.consuming = false
-            await axios.put("/content", activeInfo)
-            const data = await axios.get("/content", {
+            await axios.put(baseURL + "/content", activeInfo)
+            const data = await axios.get(baseURL + "/content", {
                 headers: {
                     Username: props.user?.username
                 }
@@ -109,8 +110,8 @@ function UserMediaPage(props) {
         } else {// If it is completed
             activeInfo.progress = "0"
             activeInfo.completed = false;
-            await axios.put("/content", activeInfo)
-            const data = await axios.get("/content", {
+            await axios.put(baseURL + "/content", activeInfo)
+            const data = await axios.get(baseURL + "/content", {
                 headers: {
                     Username: props.user?.username
                 }
@@ -133,8 +134,8 @@ function UserMediaPage(props) {
         }
         if (!activeInfo.consuming) { // if media is not being consumed
             activeInfo.consuming = true
-            await axios.put("/content", activeInfo)
-            const data = await axios.get("/content", {
+            await axios.put(baseURL + "/content", activeInfo)
+            const data = await axios.get(baseURL + "/content", {
                 headers: {
                     Username: props.user?.username
                 }
@@ -145,8 +146,8 @@ function UserMediaPage(props) {
 
         } else { // if media is being consumed
             activeInfo.consuming = false
-            await axios.put("/content", activeInfo)
-            const data = await axios.get("/content", {
+            await axios.put(baseURL + "/content", activeInfo)
+            const data = await axios.get(baseURL + "/content", {
                 headers: {
                     Username: props.user?.username
                 }
@@ -163,9 +164,9 @@ function UserMediaPage(props) {
         payload.username = props.user?.username
         console.log("payload sent to delete", payload)
         try {
-            await axios.delete("/content", { data: payload })
+            await axios.delete(baseURL + "/content", { data: payload })
             setDisplayInfo(false)
-            const data = await axios.get("/content", {
+            const data = await axios.get(baseURL + "/content", {
                 headers: {
                     Username: props.user?.username
                 }

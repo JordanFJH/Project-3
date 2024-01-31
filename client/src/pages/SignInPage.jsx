@@ -59,7 +59,7 @@ function SignInPage({ setUser }) {
         e.preventDefault()
         try {
             //Send data to backend to create user and token
-            const response = await axios.post("/auth/register", registerForm)
+            const response = await axios.post(baseURL + "/auth/register", registerForm)
             const token = response.data.token
             console.log(token)
             if (!token) {
@@ -68,7 +68,7 @@ function SignInPage({ setUser }) {
             }
             localStorage.setItem("token", token)
 
-            const userResponse = await axios.get("/api/users", {
+            const userResponse = await axios.get(baseURL + "/api/users", {
                 headers: {
                     Authorization: token
                 }

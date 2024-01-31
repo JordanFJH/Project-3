@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import baseURL from "../../baseURL";
 import SearchCard from "../components/SearchCard";
 import DisplaySelectedSearch from "../components/DisplaySelectedSearch";
 import { getMovieArray, getBookArray, getTVArray, getGameArray } from "../functions/searchArrays";
@@ -16,14 +17,14 @@ function SearchPage(props) {
 
     async function getUser(token) {
         try {
-            const response = await axios.get("/api/users", {
+            const response = await axios.get(baseURL + "/api/users", {
                 headers: {
                     Authorization: token
                 }
             })
             props.setUser(response.data)
             console.log("Checking the username", response.data?.username)
-            const data = await axios.get("/content", { // get user collection again
+            const data = await axios.get(baseURL + "/content", { // get user collection again
                 headers: {
                     Username: response.data?.username
                 }

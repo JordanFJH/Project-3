@@ -1,4 +1,5 @@
 import axios from "axios";
+import baseURL from "../../baseURL";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTrendingContent } from "../functions/userMediaFunctions";
@@ -37,7 +38,7 @@ function UserHomePage(props) {
     async function getUser(token) { //Getting user info and data
         try {
             // Setting the user
-            const response = await axios.get("/api/users", {
+            const response = await axios.get(baseURL + "/api/users", {
                 headers: {
                     Authorization: token
                 }
@@ -46,7 +47,7 @@ function UserHomePage(props) {
             props.setUser(response.data)
             console.log("user set")
             // Setting the user's data
-            const data = await axios.get("/content", {
+            const data = await axios.get(baseURL + "/content", {
                 headers: {
                     Username: props.user.username
                 }
@@ -72,13 +73,13 @@ function UserHomePage(props) {
                 infoLink: specificTrend.infoLink,
                 id: specificTrend.id
             }
-            await axios.post("/content", singleObj, {
+            await axios.post(baseURL + "/content", singleObj, {
                 headers: {
                     Username: props.user.username
                 }
             })
 
-            const data = await axios.get("/content", { // get user collection again
+            const data = await axios.get(baseURL + "/content", { // get user collection again
                 headers: {
                     Username: props.user?.username
                 }

@@ -94,7 +94,7 @@ function UserMediaPage(props) {
     // Handle the completion of the content once clicked
     async function handleComplete() {
         if (!activeInfo.completed) {// If it's not completed
-            activeInfo.progress = "Complete" //Setting progress to the string "Completed"
+            activeInfo.progress = activeInfo.length //Setting progress to the total length
             activeInfo.completed = true // setting completed to true
             activeInfo.consuming = false
             await axios.put(baseURL + "/content", activeInfo)

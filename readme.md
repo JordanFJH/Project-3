@@ -46,3 +46,11 @@ https://mpt-frontend.onrender.com
 # Prep Info
 
 https://trello.com/b/yOZYK2VP/mpt-project-board
+
+---
+
+# Things still to do
+- Make mobile and smaller screen size friendly
+- Better styling and scaling for content with longer names and such
+- Loading states for logging in registering and loading data
+- Update header and footer to add links to social pages

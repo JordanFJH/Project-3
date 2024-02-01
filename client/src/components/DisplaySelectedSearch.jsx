@@ -99,9 +99,9 @@ function DisplaySelectedSearch({ con, user, library, setSelectedSearch, setLibra
     return (
         <div className="w-3/6 h-1/2 absolute bg-green-500 overflow-y-scroll flex flex-col border-solid border-black border-4 rounded">
             <button className="absolute right-0" onClick={() => { setSelectedSearch({}) }}>X</button>
-            <div className="flex p-3">
-                <div className='w-1/2'>
-                    <img src={con.imgURL} alt="Picture Not Found" className='w-full' />
+            <div className="flex p-3 h-1/2">
+                <div className='w-1/2 h-full'>
+                    <img src={con.imgURL} alt="Picture Not Found" className='w-full h-full' />
                 </div>
                 <div className='flex flex-col items-center w-1/2'>
                     <h2>{con.name}</h2>

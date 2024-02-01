@@ -54,3 +54,5 @@ https://trello.com/b/yOZYK2VP/mpt-project-board
 - Better styling and scaling for content with longer names and such
 - Loading states for logging in registering and loading data
 - Update header and footer to add links to social pages
+- Adding an incorrect password or incorrect username alert when logging in
+- Making username case insensitive when logging in
